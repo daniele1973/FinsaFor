@@ -14,7 +14,7 @@ namespace FinsaWeb.Controllers
         {
             this.repo = repo;
         }
-        public IActionResult Index()
+        public IActionResult Corsi()
         {
             var result = repo.FindAll();
             return View(result);
