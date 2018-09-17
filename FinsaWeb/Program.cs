@@ -15,8 +15,7 @@ namespace FinsaWeb
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
-            //pffff
-            //ffff 2
+            //crea host web
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
