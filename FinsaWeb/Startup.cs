@@ -28,6 +28,7 @@ namespace FinsaWeb
           configuration.GetConnectionString("DefaultConnection")));
             //services.AddTransient<CourseRepository, InMemoryCourseRepository>();
             services.AddTransient<ICorsiRepository, EFCorsiRepository>();
+            services.AddTransient<IAllieviRepository, EFAllieviRepository>();
             services.AddMvc();
         }
 
