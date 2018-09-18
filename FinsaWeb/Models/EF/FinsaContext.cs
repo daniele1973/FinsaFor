@@ -18,5 +18,19 @@ namespace FinsaWeb.Models.EF
         public DbSet<Docente> Docenti { get; set; }
         public DbSet<CorsoDocente> CorsiDocenti { get; set; }
         public DbSet<CorsoAllievo> CorsiAllievi { get; set; }
+        public DbSet<EdizioneCorso> EdizioniCorsi { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CorsoAllievo>()
+                .HasKey(ca => new { ca.IDAllievo, ca.IDEdizioneCorso });
+
+            modelBuilder.Entity<CorsoAllievo>()
+               .HasOne(ca => ca.EdizioneCorso)
+               .WithMany(ec => ec.CorsiAllievi)
+               .HasForeignKey(ca => ca.IDEdizioneCorso);
+               
+               
+        }
     }
 }
