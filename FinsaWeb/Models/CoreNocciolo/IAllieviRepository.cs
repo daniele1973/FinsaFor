@@ -8,5 +8,6 @@ namespace FinsaWeb.Models.CoreNocciolo
     public interface IAllieviRepository
     {
         IEnumerable<Allievo> FindAll();
+        void Add(Allievo Studente);
     }
 }
