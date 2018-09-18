@@ -7,6 +7,6 @@ namespace FinsaWeb.Models.CoreNocciolo
 {
     public interface ICorsiDocentiRepository
     {
-        IEnumerable<CorsoDocente> FindAll();
+        IEnumerable<Docente> FindAll();
     }
 }
