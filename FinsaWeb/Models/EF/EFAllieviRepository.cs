@@ -8,9 +8,21 @@ namespace FinsaWeb.Models.EF
 {
     public class EFAllieviRepository : IAllieviRepository
     {
+        private FinsaContext context;
+        public EFAllieviRepository(FinsaContext ctx)
+        {
+            context = ctx;
+        }
+
+        public void Add(Allievo Studente)
+        {
+            context.Add(Studente);
+            context.SaveChanges();
+        }
+
         public IEnumerable<Allievo> FindAll()
         {
-            throw new NotImplementedException();
+            return context.Allievi.ToList();
         }
     }
 }
