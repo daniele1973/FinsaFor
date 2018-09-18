@@ -14,5 +14,7 @@ namespace FinsaWeb.Models.EF
 
         }
         public DbSet<Corso> Corsi { get; set; }
+        public DbSet<Allievo> Allievi { get; set; }
     }
+        
 }
