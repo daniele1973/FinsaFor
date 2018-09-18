@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FinsaWeb.Models
 {
-    public class CorsoAllievo
+    public class CorsoDocente
     {
         public int Id { get; set; }
     }
