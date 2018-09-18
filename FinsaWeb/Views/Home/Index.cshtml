@@ -1,16 +1,22 @@
-﻿@using FinsaForEver.Controllers
-@model Pippo
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
 
+@using FinsaForEver.Controllers
+@model Pippo
 pippo
 
 <h1>@Model.Testo1</h1>
 
+<p><a asp-controller="Corsi" asp-action="Corsi">Corsi</a></p>
+<p><a asp-controller="Allievi" asp-action="Index">Allievi</a></p>
+<p><a asp-controller="CorsiAllievi" asp-action="CorsiAllievi">CorsiAllievi</a></p>
+<br />
 <p><a href="Corsi/Corsi">Corsi</a></p>
 <p><a href="Allievi/Index">Allievi</a></p>
 <p><a href="CorsiAllievi/CorsiAllievi">CorsiAllievi</a></p>
 @*@{
-    ViewData["Title"] = "Index";
-}
+        ViewData["Title"] = "Index";
+    }
 
-<h2>Index</h2>*@
+    <h2>Index</h2>*@
 

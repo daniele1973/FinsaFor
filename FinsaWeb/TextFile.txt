@@ -1,7 +1,7 @@
 ﻿PS E:\!F.IRE\!!! WEB APPLICATION !!!\2018_09_17\WebApplication1\WebApplication1> dotnet ef migrations add initial
 
 (Se non è già stato fatto)
-dotnet ef migrations add initial
+dotnet ef migrations add <nome migration: la prima in genere: initial>
 
 [*** Se dà l'ERRORE: The entity type 'Corso' requires a primary key to be defined. ***]
 [*** Provare a mettere nella Classe 'Corso' una proprietà di tipo int e nome Id    ***]
@@ -35,3 +35,13 @@ Alla Classe FinsaContext aggiungere il costruttore
   public FinsaContext(DbContextOptions<FinsaContext> options) : base(options)
         {}
 ----------------------------------------------------------------------------------------------------------------------------------
+
+# Per 'revertire' alla migration <nome migration>:
+dotnet ef database update <nome migration>
+
+# Per 'revertire' a(prima de)lla migration iniziale, in modo da poi poterla eliminare:
+dotnet ef database update 0
+
+# Per eliminare l'ultima migration:
+dotnet ef migrations remove
+# ripetere questo comando n volte fino a eliminare tutte le migrations

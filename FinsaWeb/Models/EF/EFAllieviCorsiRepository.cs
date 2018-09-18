@@ -16,7 +16,7 @@ namespace FinsaWeb.Models.EF
         
         public void Add(CorsoAllievo corsoAllievo)
         {
-            context.Add(corsoAllievo);
+            //context.Add(corsoAllievo);
 
             context.SaveChanges();
         }
