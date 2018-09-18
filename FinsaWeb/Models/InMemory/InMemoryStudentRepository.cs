@@ -32,7 +32,7 @@ namespace FinsaWeb.Models.InMemory
 
         public void Add(Allievo Studente)
         {
-            throw new NotImplementedException();
+            listaAllievi.Add(Studente);
         }
 
         public IEnumerable<Allievo> FindAll()

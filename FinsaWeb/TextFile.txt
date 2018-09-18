@@ -1,0 +1,37 @@
+﻿PS E:\!F.IRE\!!! WEB APPLICATION !!!\2018_09_17\WebApplication1\WebApplication1> dotnet ef migrations add initial
+
+(Se non è già stato fatto)
+dotnet ef migrations add initial
+
+[*** Se dà l'ERRORE: The entity type 'Corso' requires a primary key to be defined. ***]
+[*** Provare a mettere nella Classe 'Corso' una proprietà di tipo int e nome Id    ***]
+----------------------------------------------------------------------------------------------------------------------------------
+Prima andare su (localdb) e creare un database con nome come specificato nella linea
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\\MSSQLLocalDB;Database=Finsa;Trusted_Connection=True;MultipleActiveResultSets=true"
+  }
+}
+nel file "appsettings.json"
+----------------------------------------------------------------------------------------------------------------------------------
+
+
+dotnet ef database update
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+System.ArgumentException
+  HResult=0x80070057
+  Messaggio=AddDbContext was called with configuration, but the context type 'FinsaContext' only declares a parameterless constructor. This means that the configuration passed to AddDbContext will never be used. If configuration is passed to AddDbContext, then 'FinsaContext' should declare a constructor that accepts a DbContextOptions<FinsaContext> and must pass it to the base constructor for DbContext.
+  Origine=Microsoft.EntityFrameworkCore
+  Analisi dello stack:
+   at Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.CheckContextConstructors[TContext]()
+   at Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext[TContext](IServiceCollection serviceCollection, Action`2 optionsAction, ServiceLifetime contextLifetime, ServiceLifetime optionsLifetime)
+   at Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext[TContext](IServiceCollection serviceCollection, Action`1 optionsAction, ServiceLifetime contextLifetime, ServiceLifetime optionsLifetime)
+   at WebApplication1.Startup.ConfigureServices(IServiceCollection services) in E:\!F.IRE\!!! WEB APPLICATION !!!\2018_09_17\WebApplication1\WebApplication1\Startup.cs:line 28
+
+Alla Classe FinsaContext aggiungere il costruttore
+  public FinsaContext(DbContextOptions<FinsaContext> options) : base(options)
+        {}
+----------------------------------------------------------------------------------------------------------------------------------

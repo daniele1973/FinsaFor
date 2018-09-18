@@ -2,15 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FinsaWeb.Models.CoreNocciolo;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinsaWeb.Controllers
 {
     public class CorsiController : Controller
     {
-        public IActionResult Index()
+        private ICorsiRepository repo;
+        public CorsiController(ICorsiRepository repo)
         {
-            return View();
+            this.repo = repo;
+        }
+        public IActionResult Corsi()
+        {
+            var result = repo.FindAll();
+            return View(result);
         }
     }
 }

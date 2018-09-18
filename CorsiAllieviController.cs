@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using FinsaWeb.Models;
-using FinsaWeb.Models.CoreNocciolo;
 
 namespace FinsaWeb.Controllers
 {
@@ -15,13 +14,12 @@ namespace FinsaWeb.Controllers
         {
             this.reposit = reposit;
         }
-        public IActionResult CorsiAllievi()
+        public IActionResult Index()
         {
-            reposit.Add(new CorsoAllievo { IDEdizioneCorso = 1, Voto = 8 });
-            //reposit.Add(new CorsoAllievo { IDAllievo = 2, IDEdizioneCorso = "secondo", Voto = 6 });
+            reposit.Add(new CorsiAllievi { IDAllievo = "Alessandro", IDEdizioneCorso = "prima", Voto = "8" });
+            reposit.Add(new CorsiAllievi { IDAllievo = "Daniele", IDEdizioneCorso = "secondo", Voto = "6" });
             var listone = reposit.FindAll();
             return View(listone);
         }
     }
 }
-

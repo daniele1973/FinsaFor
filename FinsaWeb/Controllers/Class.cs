@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FinsaWeb.Models
+namespace FinsaWeb.Controllers
 {
-    public class CorsoDocente
+    public class Class
     {
-        public int Id { get; set; }
     }
 }

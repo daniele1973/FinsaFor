@@ -8,9 +8,15 @@ namespace FinsaWeb.Models.EF
 {
     public class EFDocentiRepository : IDocentiRepository
     {
+        private FinsaContext context;
+
+        public EFDocentiRepository(FinsaContext context)
+        {
+            this.context = context;
+        }
         public IEnumerable<Docente> FindAll()
         {
-            throw new NotImplementedException();
+            return context.Docenti.ToList();
         }
     }
 }

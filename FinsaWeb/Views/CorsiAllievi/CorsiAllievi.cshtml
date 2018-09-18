@@ -1,0 +1,27 @@
+﻿@using FinsaWeb.Models.InMemory;
+@using FinsaWeb.Models.CoreNocciolo;
+@using FinsaWeb.Models;
+
+@{
+    ViewData["Title"] = "CorsiAllievi";
+}
+
+<h2> CORSI ALLIEVI </h2>
+
+@model IEnumerable<CorsoAllievo>
+@foreach (var x in Model)
+{
+    <div>
+        <span>
+            Allievo: @x.IDAllievo
+        </span>
+        <br />
+        <span>
+            Corso: @x.IDEdizioneCorso
+        </span>
+        <span>
+            Voto: @x.Voto
+        </span>
+    </div>
+    <br />
+}
