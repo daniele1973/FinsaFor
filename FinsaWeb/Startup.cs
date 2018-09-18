@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FinsaWeb.Models.CoreNocciolo;
+using FinsaWeb.Models.EF;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using FinsaWeb.Models.CoreNocciolo;
-using FinsaWeb.Models.InMemory;
-using FinsaWeb.Models.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FinsaWeb
 {
@@ -27,35 +26,24 @@ namespace FinsaWeb
         {
             services.AddDbContext<FinsaContext>(opts => opts.UseSqlServer(
           configuration.GetConnectionString("DefaultConnection")));
-            services.AddTransient<IAllieviRepository, InMemoryStudentRepository>();
-            //services.AddTransient<IAllieviRepository, EFAllieviRepository>();
+            //services.AddTransient<CourseRepository, InMemoryCourseRepository>();
+            services.AddTransient<ICorsiRepository, EFCorsiRepository>();
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            /*if (env.IsDevelopment())
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });*/
-            app.UseDeveloperExceptionPage();
-            app.UseStatusCodePages();
             app.UseStaticFiles();
-           
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Allievi}/{action=Index}/{id?}");
-            });
             app.UseMvcWithDefaultRoute();
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World!");
+            //});
         }
     }
 }

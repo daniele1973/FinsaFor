@@ -11,9 +11,10 @@ using System;
 namespace FinsaWeb.Migrations
 {
     [DbContext(typeof(FinsaContext))]
-    partial class FinsaContextModelSnapshot : ModelSnapshot
+    [Migration("20180917202831_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -8,9 +8,14 @@ namespace FinsaWeb.Models.EF
 {
     public class EFCorsiRepository : ICorsiRepository
     {
+        private FinsaContext context;
+        public EFCorsiRepository(FinsaContext context)
+        {
+            this.context = context;
+        }
         public IEnumerable<Corso> FindAll()
         {
-            throw new NotImplementedException();
+            return context.Corsi.ToList();
         }
     }
 }
