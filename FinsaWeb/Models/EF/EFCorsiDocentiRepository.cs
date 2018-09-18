@@ -8,7 +8,7 @@ namespace FinsaWeb.Models.EF
 {
     public class EFCorsiDocentiRepository : ICorsiDocentiRepository
     {
-        public IEnumerable<CorsoDocente> FindAll()
+        public IEnumerable<Docente> FindAll()
         {
             throw new NotImplementedException();
         }

@@ -7,11 +7,6 @@ namespace FinsaWeb.Models
 {
     public class CorsoDocente
     {
-        public int IDDocente { get; set; }
-        public string CF { get; set; }
-        public string Nome { get; set; }
-        public string Cognome { get; set; }
-        public DateTime DataNascita { get; set; }
-        public string TipoDocente { get; set; }
+        public int Id { get; set; }
     }
 }

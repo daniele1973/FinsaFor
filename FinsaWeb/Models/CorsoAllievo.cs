@@ -7,5 +7,6 @@ namespace FinsaWeb.Models
 {
     public class CorsoAllievo
     {
+        public int Id { get; set; }
     }
 }
