@@ -13,19 +13,19 @@ namespace FinsaWeb.Models.InMemory
         {
             new Allievo
             {
-                IdStudente=1,
+                IdAllievo=1,
                 Nome = "Italo",
                 Cognome="Calvino",
                 CodiceFiscale="ITLCLV44A35D969M",
-                TipoStudente="Cantastorie"
+                TipoAllievo="Cantastorie"
             },
              new Allievo
             {
-                IdStudente=2,
+                IdAllievo=2,
                 Nome="Ibrahimovich",
                 Cognome="Slatan",
                 CodiceFiscale="IHVSLT86A24D756M",
-                TipoStudente = "Pallonaro"
+                TipoAllievo = "Pallonaro"
             }
 
         };

@@ -37,7 +37,7 @@ namespace FinsaWeb.Migrations
 
             modelBuilder.Entity("FinsaWeb.Models.Allievo", b =>
                 {
-                    b.Property<int>("IdStudente")
+                    b.Property<int>("IdAllievo")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("CodiceFiscale");
@@ -46,42 +46,49 @@ namespace FinsaWeb.Migrations
 
                     b.Property<string>("Nome");
 
-                    b.Property<string>("TipoStudente");
+                    b.Property<string>("TipoAllievo");
 
-                    b.HasKey("IdStudente");
+                    b.HasKey("IdAllievo");
 
                     b.ToTable("Allievi");
                 });
 
             modelBuilder.Entity("FinsaWeb.Models.Corso", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdCorso")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("Difficolta");
+                    b.Property<int?>("Difficolta")
+                        .IsRequired();
 
-                    b.Property<decimal?>("PrezzoBase");
+                    b.Property<decimal?>("PrezzoBase")
+                        .IsRequired();
 
-                    b.Property<string>("Titolo");
+                    b.Property<string>("Titolo")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.HasKey("Id");
+                    b.HasKey("IdCorso");
 
                     b.ToTable("Corsi");
                 });
 
             modelBuilder.Entity("FinsaWeb.Models.CorsoDocente", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("IdDocente");
 
-                    b.HasKey("Id");
+                    b.Property<int>("IdEdizioneCorso");
+
+                    b.Property<decimal>("ValutazioneMedia");
+
+                    b.HasKey("IdDocente", "IdEdizioneCorso");
 
                     b.ToTable("CorsiDocenti");
                 });
 
             modelBuilder.Entity("FinsaWeb.Models.Docente", b =>
                 {
-                    b.Property<int>("IDDocente")
+                    b.Property<int>("IdDocente")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("CF");
@@ -94,21 +101,23 @@ namespace FinsaWeb.Migrations
 
                     b.Property<string>("TipoDocente");
 
-                    b.HasKey("IDDocente");
+                    b.HasKey("IdDocente");
 
                     b.ToTable("Docenti");
                 });
 
             modelBuilder.Entity("FinsaWeb.Models.EdizioneCorso", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdEdizioneCorso")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DataInizio");
 
                     b.Property<int>("IdCorso");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdEdizioneCorso");
+
+                    b.HasIndex("IdCorso");
 
                     b.ToTable("EdizioniCorsi");
                 });
@@ -123,6 +132,27 @@ namespace FinsaWeb.Migrations
                     b.HasOne("FinsaWeb.Models.EdizioneCorso", "EdizioneCorso")
                         .WithMany("CorsiAllievi")
                         .HasForeignKey("IDEdizioneCorso")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("FinsaWeb.Models.CorsoDocente", b =>
+                {
+                    b.HasOne("FinsaWeb.Models.Docente", "Docente")
+                        .WithMany("CorsiDocenti")
+                        .HasForeignKey("IdDocente")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("FinsaWeb.Models.EdizioneCorso", "EdizioneCorso")
+                        .WithMany("CorsiDocenti")
+                        .HasForeignKey("IdDocente")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("FinsaWeb.Models.EdizioneCorso", b =>
+                {
+                    b.HasOne("FinsaWeb.Models.Corso", "Corso")
+                        .WithMany("EdizioniCorsi")
+                        .HasForeignKey("IdCorso")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

@@ -22,6 +22,22 @@ namespace FinsaWeb.Models.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region Allievo
+
+            modelBuilder.Entity<Allievo>()
+                .HasKey(a => a.IdAllievo);
+
+            #endregion
+
+            #region Corso
+
+            modelBuilder.Entity<Corso>()
+                .HasKey(c => c.IdCorso);
+
+            #endregion
+
+            #region CorsoAllievo
+
             modelBuilder.Entity<CorsoAllievo>()
                 .HasKey(ca => new { ca.IDAllievo, ca.IDEdizioneCorso });
 
@@ -30,11 +46,48 @@ namespace FinsaWeb.Models.EF
                .WithMany(ec => ec.CorsiAllievi)
                .HasForeignKey(ca => ca.IDEdizioneCorso);
 
-
             modelBuilder.Entity<CorsoAllievo>()
                 .HasOne(ca => ca.Allievo)
                 .WithMany(a => a.CorsiAllievi)
                 .HasForeignKey(ca => ca.IDAllievo);
+
+            #endregion
+
+            #region CorsoDocente
+
+            modelBuilder.Entity<CorsoDocente>()
+                .HasKey(cd => new { cd.IdDocente, cd.IdEdizioneCorso });
+
+            modelBuilder.Entity<CorsoDocente>()
+                .HasOne(cd => cd.EdizioneCorso)
+                .WithMany(ec => ec.CorsiDocenti)
+                .HasForeignKey(cd => cd.IdDocente);
+
+            modelBuilder.Entity<CorsoDocente>()
+                .HasOne(cd => cd.Docente)
+                .WithMany(d => d.CorsiDocenti)
+                .HasForeignKey(cd => cd.IdDocente);
+
+            #endregion
+
+            #region Docente
+
+            modelBuilder.Entity<Docente>()
+                .HasKey(d => d.IdDocente);
+
+            #endregion
+
+            #region EdizioneCorso
+
+            modelBuilder.Entity<EdizioneCorso>()
+                .HasKey(ec => ec.IdEdizioneCorso);
+
+            modelBuilder.Entity<EdizioneCorso>()
+                .HasOne(ec => ec.Corso)
+                .WithMany(c => c.EdizioniCorsi)
+                .HasForeignKey(ec => ec.IdCorso);
+
+            #endregion
         }
     }
 }

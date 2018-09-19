@@ -17,7 +17,7 @@ namespace FinsaWeb.Controllers
         }
         public IActionResult Index()
         {
-            repo.Add(new Allievo { Nome="Martino", Cognome="Gonzalo", CodiceFiscale="MTNGNZ78A45D969M",TipoStudente="Mhhhhhh"});
+            repo.Add(new Allievo { Nome="Martino", Cognome="Gonzalo", CodiceFiscale="MTNGNZ78A45D969M",TipoAllievo="Mhhhhhh"});
             var lista = repo.FindAll();
             return View(lista);
         }
