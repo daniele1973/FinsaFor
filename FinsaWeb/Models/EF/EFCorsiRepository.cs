@@ -13,6 +13,13 @@ namespace FinsaWeb.Models.EF
         {
             this.context = context;
         }
+
+        public void Aggiungi(Corso corso)
+        {
+            context.Corsi.Add(corso);
+            context.SaveChanges();
+        }
+
         public IEnumerable<Corso> FindAll()
         {
             return context.Corsi.ToList();

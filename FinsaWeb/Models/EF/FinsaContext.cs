@@ -29,8 +29,12 @@ namespace FinsaWeb.Models.EF
                .HasOne(ca => ca.EdizioneCorso)
                .WithMany(ec => ec.CorsiAllievi)
                .HasForeignKey(ca => ca.IDEdizioneCorso);
-               
-               
+
+
+            modelBuilder.Entity<CorsoAllievo>()
+                .HasOne(ca => ca.Allievo)
+                .WithMany(a => a.CorsiAllievi)
+                .HasForeignKey(ca => ca.IDAllievo);
         }
     }
 }

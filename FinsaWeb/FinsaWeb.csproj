@@ -17,9 +17,5 @@
   <ItemGroup>
     <ProjectReference Include="..\FinsaTest\FinsaTest.csproj" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
 
 </Project>

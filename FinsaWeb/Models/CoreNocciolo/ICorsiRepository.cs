@@ -8,5 +8,7 @@ namespace FinsaWeb.Models.CoreNocciolo
     public interface ICorsiRepository
     {
         IEnumerable<Corso> FindAll();
+
+        void Aggiungi(Corso corso);
     }
 }

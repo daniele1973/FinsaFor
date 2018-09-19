@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FinsaWeb.Models;
 using FinsaWeb.Models.CoreNocciolo;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,27 @@ namespace FinsaWeb.Controllers
         {
             var result = repo.FindAll();
             return View(result);
+        }
+
+        public IActionResult Inserisci()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Inserisci(Corso corso)
+        {
+            if (ModelState.IsValid)
+            {
+                repo.Aggiungi(corso);
+                return RedirectToAction("InserimentoCompleto"); 
+            }
+
+            return View(corso);
+        }
+        public IActionResult InserimentoCompleto()
+        {
+            return View();
         }
     }
 }

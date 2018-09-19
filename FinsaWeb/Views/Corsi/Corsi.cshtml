@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<Corso>
 
 <h2>Lista Corsi</h2>
+@*<p><a href="CorsiInserisci">Inserisci un Corso</a></p>*@
+<p><a asp-controller="Corsi" asp-action="Inserisci">Inserisci un Corso</a></p>
 
 <table>
     <tr style="font-weight: bold;"><td>Id</td><td>Difficolt&agrave;</td><td>Prezzo Base</td><td>Titolo</td></tr>

@@ -14,5 +14,7 @@ namespace FinsaWeb.Models
         public string Cognome { get; set; }
         public string CodiceFiscale { get; set; }
         public string TipoStudente { get; set; }
+
+        public ICollection<CorsoAllievo> CorsiAllievi { get; set; }
     }
 }
