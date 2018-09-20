@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace FinsaWeb.Migrations
 {
-    public partial class ArchitetturaDB : Migration
+    public partial class ArchitetturaDatabaseDebuggata : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -81,22 +81,22 @@ namespace FinsaWeb.Migrations
                 name: "CorsiAllievi",
                 columns: table => new
                 {
-                    IDAllievo = table.Column<int>(nullable: false),
-                    IDEdizioneCorso = table.Column<int>(nullable: false),
+                    IdAllievo = table.Column<int>(nullable: false),
+                    IdEdizioneCorso = table.Column<int>(nullable: false),
                     Voto = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CorsiAllievi", x => new { x.IDAllievo, x.IDEdizioneCorso });
+                    table.PrimaryKey("PK_CorsiAllievi", x => new { x.IdAllievo, x.IdEdizioneCorso });
                     table.ForeignKey(
-                        name: "FK_CorsiAllievi_Allievi_IDAllievo",
-                        column: x => x.IDAllievo,
+                        name: "FK_CorsiAllievi_Allievi_IdAllievo",
+                        column: x => x.IdAllievo,
                         principalTable: "Allievi",
                         principalColumn: "IdAllievo",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CorsiAllievi_EdizioniCorsi_IDEdizioneCorso",
-                        column: x => x.IDEdizioneCorso,
+                        name: "FK_CorsiAllievi_EdizioniCorsi_IdEdizioneCorso",
+                        column: x => x.IdEdizioneCorso,
                         principalTable: "EdizioniCorsi",
                         principalColumn: "IdEdizioneCorso",
                         onDelete: ReferentialAction.Cascade);
@@ -128,9 +128,9 @@ namespace FinsaWeb.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CorsiAllievi_IDEdizioneCorso",
+                name: "IX_CorsiAllievi_IdEdizioneCorso",
                 table: "CorsiAllievi",
-                column: "IDEdizioneCorso");
+                column: "IdEdizioneCorso");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EdizioniCorsi_IdCorso",

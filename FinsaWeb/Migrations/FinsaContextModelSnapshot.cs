@@ -22,15 +22,15 @@ namespace FinsaWeb.Migrations
 
             modelBuilder.Entity("CorsoAllievo", b =>
                 {
-                    b.Property<int>("IDAllievo");
+                    b.Property<int>("IdAllievo");
 
-                    b.Property<int>("IDEdizioneCorso");
+                    b.Property<int>("IdEdizioneCorso");
 
                     b.Property<int?>("Voto");
 
-                    b.HasKey("IDAllievo", "IDEdizioneCorso");
+                    b.HasKey("IdAllievo", "IdEdizioneCorso");
 
-                    b.HasIndex("IDEdizioneCorso");
+                    b.HasIndex("IdEdizioneCorso");
 
                     b.ToTable("CorsiAllievi");
                 });
@@ -126,12 +126,12 @@ namespace FinsaWeb.Migrations
                 {
                     b.HasOne("FinsaWeb.Models.Allievo", "Allievo")
                         .WithMany("CorsiAllievi")
-                        .HasForeignKey("IDAllievo")
+                        .HasForeignKey("IdAllievo")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("FinsaWeb.Models.EdizioneCorso", "EdizioneCorso")
                         .WithMany("CorsiAllievi")
-                        .HasForeignKey("IDEdizioneCorso")
+                        .HasForeignKey("IdEdizioneCorso")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

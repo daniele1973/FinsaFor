@@ -39,17 +39,17 @@ namespace FinsaWeb.Models.EF
             #region CorsoAllievo
 
             modelBuilder.Entity<CorsoAllievo>()
-                .HasKey(ca => new { ca.IDAllievo, ca.IDEdizioneCorso });
+                .HasKey(ca => new { ca.IdAllievo, ca.IdEdizioneCorso });
 
             modelBuilder.Entity<CorsoAllievo>()
                .HasOne(ca => ca.EdizioneCorso)
                .WithMany(ec => ec.CorsiAllievi)
-               .HasForeignKey(ca => ca.IDEdizioneCorso);
+               .HasForeignKey(ca => ca.IdEdizioneCorso);
 
             modelBuilder.Entity<CorsoAllievo>()
                 .HasOne(ca => ca.Allievo)
                 .WithMany(a => a.CorsiAllievi)
-                .HasForeignKey(ca => ca.IDAllievo);
+                .HasForeignKey(ca => ca.IdAllievo);
 
             #endregion
 

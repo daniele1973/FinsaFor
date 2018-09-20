@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 public class CorsoAllievo
 {    
-    public int IDAllievo { get; set; }
-    public int IDEdizioneCorso { get; set; }
+    public int IdAllievo { get; set; }
+    public int IdEdizioneCorso { get; set; }
     public int? Voto { get; set; }
 
     public Allievo Allievo { get; set; }
