@@ -8,7 +8,7 @@
     <tr style="font-weight: bold;"><td>Id&nbsp;&nbsp;</td><td>Difficolt&agrave;&nbsp;&nbsp;</td><td>PrezzoBase&nbsp;&nbsp;</td><td>Titolo</td></tr>
     @foreach (var item in Model)
     {
-        <tr id="rigaCorso_@item.IdCorso" class="righeCorsi"><td>@item.IdCorso</td><td>@item.Difficolta</td><td>@item.PrezzoBase</td><td>@item.Titolo</td><td><button id="btnVediEC_@item.IdCorso" onclick="vediEdizioniCorso(@item.IdCorso)">Vedi Edizioni Corso</button></td></tr>
+        <tr id="rigaCorso_@item.IdCorso" class="righeCorsi"><td>@item.IdCorso</td><td>@item.Difficolta</td><td>@item.PrezzoBase</td><td>@item.Titolo</td><td><button data-corso-id="@item.IdCorso">Vedi Edizioni Corso</button></td></tr>
     }
 </table>
 
@@ -22,76 +22,4 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<script>
-    function togliGrassetti() {
-        let daSgrassettare = document.getElementsByClassName("righeCorsi");
-        for (let i = 0; i < daSgrassettare.length; i++) {
-            daSgrassettare[i].removeAttribute("style");
-        }
-    }
-
-    function mettiGrassetto(idCorso) {
-        let daGrassettare = document.getElementById("rigaCorso_" + idCorso);
-        daGrassettare.setAttribute("style", "font-weight: bold;");
-    }
-
-    function vediEdizioniCorso(idCorso) {
-        //alert(`vediEdizioniCorso(${idCorso});`);
-        document.getElementById("idCorsoTitoloDetail").textContent = idCorso;
-
-        togliGrassetti();
-        mettiGrassetto(idCorso);
-
-        let tagDaRiempire = document.getElementById("tabEdizioniCorso");
-        let intestazioni = document.getElementById("intestazioniTabEdizioniCorso");
-        $.ajax({
-            type: 'GET',
-            url: '/API/APIEdizioniCorsi/' + idCorso,
-            dataType: 'json',
-            success: function (datiJson) {
-                console.log("success(datiJson);");
-
-                tagDaRiempire.innerHTML = "";
-                tagDaRiempire.appendChild(intestazioni);
-                intestazioni.removeAttribute("hidden");
-
-                if (datiJson.length > 0) {
-                    //alert(datiJson[0].dataInizio);
-                    console.log("datiJson.length > 0");
-
-                    
-
-                    for (let i in datiJson) {
-                        console.log("LOOP: " + datiJson[i].idEdizioneCorso);
-                        let riga = document.createElement("tr");
-                        
-                        let casellaIdEdizioneCorso = document.createElement("td");
-                        riga.appendChild(casellaIdEdizioneCorso);
-                        casellaIdEdizioneCorso.textContent = datiJson[i].idEdizioneCorso;               
-
-                        let casellaDataInizio = document.createElement("td");
-                        riga.appendChild(casellaDataInizio);
-                        casellaDataInizio.textContent = datiJson[i].dataInizio;
-                        
-                        tagDaRiempire.appendChild(riga);
-                    }
-                }
-                else {
-                    tagDaRiempire.innerHTML = "";
-                    tagDaRiempire.appendChild(intestazioni);
-                    intestazioni.setAttribute("hidden", "hidden");
-
-                    let noEdizioni = document.createElement("p");
-                    noEdizioni.textContent = "Questo corso non ha ancora edizioni";
-                    noEdizioni.setAttribute("style", "color: red; font-style: italic;");
-                    tagDaRiempire.appendChild(noEdizioni);
-                }
-                
-            },
-            error: function (ex) {
-                alert(`ERROR CODE: ${ex.status}\nERROR TEXT: ${ex.statusText}`);
-            }
-            
-        });
-    }
-</script>
+<script src="~/scripts/VediEdizioniCorso.js"></script>
