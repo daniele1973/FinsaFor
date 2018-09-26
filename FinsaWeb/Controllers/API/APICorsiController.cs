@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FinsaWeb.Models;
 using FinsaWeb.Models.EF;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -45,8 +46,6 @@ namespace FinsaWeb.Controllers.API
         {
             List<Corso> corsi = context.Corsi.Where(c => c.Titolo.Contains(substring)).ToList();
             return Ok(corsi);
-            //return corso;
-            //return "hai chiamato: api/APICorsi/"+id;
         }
 
         // POST: api/APICorsi
@@ -85,6 +84,52 @@ namespace FinsaWeb.Controllers.API
             Corso daCancellare = context.Corsi.Single(c => c.IdCorso == id);
             context.Corsi.Remove(daCancellare);
             context.SaveChanges();
+        }
+
+        // _dg_ PATCH: api/APICorsi/5
+        [HttpPatch("{id}")]
+        public IActionResult Patch(int id, [FromBody] JsonPatchDocument<Corso> jsonPatchDocument)
+        {
+            if (jsonPatchDocument == null)
+            {
+                return BadRequest();
+            }
+
+            Corso daPatchareFromStore = context.Corsi.FirstOrDefault(c => c.IdCorso == id);
+
+            if (daPatchareFromStore == null)
+            {
+                return NotFound();
+            }
+
+            Corso daPatchareNew = new Corso
+            {
+                Titolo = daPatchareFromStore.Titolo,
+                PrezzoBase = daPatchareFromStore.PrezzoBase,
+                Difficolta = daPatchareFromStore.Difficolta
+            };
+
+            jsonPatchDocument.ApplyTo(daPatchareNew, ModelState);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            TryValidateModel(daPatchareNew);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            daPatchareFromStore.Titolo = daPatchareNew.Titolo;
+            daPatchareFromStore.Difficolta = daPatchareNew.Difficolta;
+            daPatchareFromStore.PrezzoBase = daPatchareNew.PrezzoBase;
+
+            context.SaveChanges();
+
+            return NoContent();
         }
     }
 }
