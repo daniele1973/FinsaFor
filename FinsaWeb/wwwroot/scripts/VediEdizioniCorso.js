@@ -24,21 +24,21 @@
 //    });
 //}
 
-//$("#tabCorsi").on("click", "button", function (evt) {
-//    vediEdizioniCorso(this.getAttribute("data-corso-id"));
-//}); // Funziona anche se all'inizio i bottoni non c'erano e verranno generati dinamicamente
-//// Basta che esista già la tabella, e ci registriamo sulla tabella
-//// Poi gli diciamo come secondo argomento la tag "button" in modo che l'evento scatti solo se il click è avvenuto su un <button>
+$("#tabCorsi").on("click", "button", function (evt) {
+    vediEdizioniCorso(this.getAttribute("data-corso-id"));
+}); // Funziona anche se all'inizio i bottoni non c'erano e verranno generati dinamicamente
+// Basta che esista già la tabella, e ci registriamo sulla tabella
+// Poi gli diciamo come secondo argomento la tag "button" in modo che l'evento scatti solo se il click è avvenuto su un <button>
 
 //Senza jQuery non abbiamo l'overload comodo di cui sopra
 
-document.querySelector("#tabCorsi").addEventListener("click", function (evt) {
-    console.log(evt);
-    console.log(evt.target.tagName);
-    if (evt.target.tagName.toUpperCase() === "BUTTON") {
-        vediEdizioniCorso(evt.target.getAttribute("data-corso-id"));
-    }
-});
+//document.querySelector("#tabCorsi").addEventListener("click", function (evt) {
+//    console.log(evt);
+//    console.log(evt.target.tagName);
+//    if (evt.target.tagName.toUpperCase() === "BUTTON") {
+//        vediEdizioniCorso(evt.target.getAttribute("data-corso-id"));
+//    }
+//});
 
 function togliGrassetti() {
     let daSgrassettare = document.getElementsByClassName("righeCorsi");
@@ -54,6 +54,8 @@ function mettiGrassetto(idCorso) { // si può anche usare parent due volte invec
 
 function vediEdizioniCorso(idCorso) {
     //alert(`vediEdizioniCorso(${idCorso});`);
+    document.getElementById("details").removeAttribute("hidden");
+
     document.getElementById("idCorsoTitoloDetail").textContent = idCorso;
 
     togliGrassetti();
