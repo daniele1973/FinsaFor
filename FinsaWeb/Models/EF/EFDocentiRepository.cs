@@ -17,17 +17,17 @@ namespace FinsaWeb.Models.EF
 
         public void Add(Docente doc)
         {
-            throw new NotImplementedException();
+            this.context.Docenti.Add(doc);
         }
 
-        public bool Delete(Docente doc)
+        public void Delete(Docente doc)
         {
             throw new NotImplementedException();
         }
 
         public Docente Find(int id)
         {
-            throw new NotImplementedException();
+            return this.context.Docenti.Find(id);
         }
 
         public IEnumerable<Docente> FindAll()
@@ -40,9 +40,9 @@ namespace FinsaWeb.Models.EF
             throw new NotImplementedException();
         }
 
-        public bool Update(Docente doc)
+        public void Update(Docente doc)
         {
-            throw new NotImplementedException();
+            this.context.Docenti.Update(doc);
         }
     }
 }

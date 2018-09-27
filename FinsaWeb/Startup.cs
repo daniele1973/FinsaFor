@@ -31,6 +31,7 @@ namespace FinsaWeb
             services.AddTransient<IEdizioniCorsiRepository, EFEdizioniCorsiRepository>();
             services.AddTransient<IAllieviRepository, EFAllieviRepository>();
             services.AddTransient<ICorsiAllieviRepository, EFCorsiAllieviRepository>();
+            services.AddTransient<IDocenteUnitOfWork, EFDocentiUnitOfWork>();
             services.AddTransient<IDocentiRepository, EFDocentiRepository>();
             services.AddTransient<ICorsiDocentiRepository, EFCorsiDocentiRepository>();
             services.AddMvc();

@@ -12,8 +12,8 @@ namespace FinsaWeb.Models.CoreNocciolo
 
         Docente Find(int id);
         void Add(Docente doc);
-        bool Update(Docente doc);
-        bool Delete(Docente doc);
+        void Update(Docente doc);
+        void Delete(Docente doc);
         
     }
 }

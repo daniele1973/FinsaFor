@@ -7,7 +7,7 @@ namespace FinsaWeb.Models.CoreNocciolo
 {
     public interface IDocenteUnitOfWork : IUnitOfWork
     {
-        IDocentiRepository Docenti { get; set; }
+        IDocentiRepository Docenti { get;}
         
 
     }
