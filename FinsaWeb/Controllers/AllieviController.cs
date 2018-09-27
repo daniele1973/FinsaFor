@@ -21,5 +21,8 @@ namespace FinsaWeb.Controllers
             var lista = repo.FindAll();
             return View(lista);
         }
+       
     }
+    
+
 }

@@ -7,7 +7,7 @@ using FinsaWeb.Models.EF;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace FinsaWeb.Controllers.API
 {
@@ -35,7 +35,7 @@ namespace FinsaWeb.Controllers.API
         public IActionResult Get(int id)
         {
             Corso corso = context.Corsi.Find(id);
-            if(corso == null)
+            if (corso == null)
             {
                 return NotFound();
             }
@@ -46,7 +46,7 @@ namespace FinsaWeb.Controllers.API
 
         // GET: api/APICorsi/PerNome/"Cors"
         [HttpGet("PerNome/{substring?}", Name = "GetByName")]
-        public IActionResult GetByName(string substring="")
+        public IActionResult GetByName(string substring = "")
         {
             List<Corso> corsi = context.Corsi.Where(c => c.Titolo.Contains(substring)).ToList();
             return Ok(corsi);
@@ -66,21 +66,35 @@ namespace FinsaWeb.Controllers.API
             context.Corsi.Add(daInserire);
             context.SaveChanges();
         }
-        
+
         // PUT: api/APICorsi/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]Corso value)
+        public IActionResult Put(int id, [FromBody]Corso value)
         {
-            Corso daAggiornare = context.Corsi.Single(c => c.IdCorso == id);
-            daAggiornare.Titolo = value.Titolo;
-            daAggiornare.PrezzoBase = value.PrezzoBase;
-            daAggiornare.Difficolta = value.Difficolta;
+            //Corso daAggiornare = context.Corsi.Find(id);
+            //if(daAggiornare == null)
+            //{
+            //    return NotFound();
+            //}
+            //daAggiornare.Titolo = value.Titolo;
+            //daAggiornare.PrezzoBase = value.PrezzoBase;
+            //daAggiornare.Difficolta = value.Difficolta;
+            try
+            {
+                value.IdCorso = id;
+                context.Corsi.Update(value);
+                context.SaveChanges();
+            }
+            catch(DbUpdateConcurrencyException e)
+            {
+                return NotFound();
+            }
 
 
-            context.SaveChanges();
+            return Ok(value);
         }
-       
-        
+
+
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
@@ -106,30 +120,30 @@ namespace FinsaWeb.Controllers.API
                 return NotFound();
             }
 
-            Corso daPatchareNew = new Corso
-            {
-                Titolo = daPatchareFromStore.Titolo,
-                PrezzoBase = daPatchareFromStore.PrezzoBase,
-                Difficolta = daPatchareFromStore.Difficolta
-            };
+            //Corso daPatchareNew = new Corso
+            //{
+            //    Titolo = daPatchareFromStore.Titolo,
+            //    PrezzoBase = daPatchareFromStore.PrezzoBase,
+            //    Difficolta = daPatchareFromStore.Difficolta
+            //};
 
-            jsonPatchDocument.ApplyTo(daPatchareNew, ModelState);
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            TryValidateModel(daPatchareNew);
+            jsonPatchDocument.ApplyTo(daPatchareFromStore, ModelState);
 
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            daPatchareFromStore.Titolo = daPatchareNew.Titolo;
-            daPatchareFromStore.Difficolta = daPatchareNew.Difficolta;
-            daPatchareFromStore.PrezzoBase = daPatchareNew.PrezzoBase;
+            TryValidateModel(daPatchareFromStore);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            //daPatchareFromStore.Titolo = daPatchareNew.Titolo;
+            //daPatchareFromStore.Difficolta = daPatchareNew.Difficolta;
+            //daPatchareFromStore.PrezzoBase = daPatchareNew.PrezzoBase;
 
             context.SaveChanges();
 
