@@ -1,11 +1,12 @@
 ﻿using FinsaWeb.Models.CoreNocciolo;
+using FinsaWeb.Models.CoreNocciolo.UoW;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FinsaWeb.Models.EF
+namespace FinsaWeb.Models.EF.UoW
 {
     public class EFDocentiUnitOfWork : IDocenteUnitOfWork
     {

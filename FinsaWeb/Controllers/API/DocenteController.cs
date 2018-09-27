@@ -6,6 +6,7 @@ using FinsaWeb.DTO;
 using FinsaWeb.DTO.Extentions;
 using FinsaWeb.Models;
 using FinsaWeb.Models.CoreNocciolo;
+using FinsaWeb.Models.CoreNocciolo.UoW;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
