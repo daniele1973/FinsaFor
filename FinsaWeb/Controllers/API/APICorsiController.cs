@@ -34,7 +34,11 @@ namespace FinsaWeb.Controllers.API
         [HttpGet("{id}", Name = "Get")]
         public IActionResult Get(int id)
         {
-            Corso corso = context.Corsi.Single(c => c.IdCorso == id);
+            Corso corso = context.Corsi.Find(id);
+            if(corso == null)
+            {
+                return NotFound();
+            }
             return Ok(corso);
             //return corso;
             //return "hai chiamato: api/APICorsi/"+id;

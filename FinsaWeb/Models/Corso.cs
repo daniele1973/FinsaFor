@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace FinsaWeb.Models
 {
     public class Corso
-    {   [BindNever]
+    {
+        [BindNever]
         public int IdCorso { get; set; } // L'avevo chiamata IdCorso, ma poi facendo "dotnet ef migrations add initial" mi dava l'errore: The entity type 'Corso' requires a primary key to be defined.
 
         [Required]
