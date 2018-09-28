@@ -13,11 +13,11 @@ namespace FinsaWeb.Controllers.API
 {
     [Produces("application/json")]
     [Route("api/APICorsi")]
-    public class APICorsiController : Controller
+    public class APICorsiAllieviController : Controller
     {
         private FinsaContext context;
 
-        public APICorsiController(FinsaContext context)
+        public APICorsiAllieviController(FinsaContext context)
         {
             this.context = context;
         }
@@ -35,13 +35,12 @@ namespace FinsaWeb.Controllers.API
         public IActionResult Get(int id)
         {
             Corso corso = context.Corsi.Find(id);
+            // Corso corso = context.Corsi.Single(c => c.IdCorso == id);
             if (corso == null)
             {
                 return NotFound();
             }
             return Ok(corso);
-            //return corso;
-            //return "hai chiamato: api/APICorsi/"+id;
         }
 
         // GET: api/APICorsi/PerNome/"Cors"
@@ -58,9 +57,9 @@ namespace FinsaWeb.Controllers.API
         {
             Corso daInserire = new Corso()
             {
-                IdAllievo = value.IdAllievo,
-                IdEdizioneCorso = value.IdEdizioneCorso,
-                Voto = value.Voto
+                Titolo = value.Titolo,
+                PrezzoBase = value.PrezzoBase,
+                Difficolta = value.Difficolta
             };
 
             context.Corsi.Add(daInserire);
@@ -69,30 +68,29 @@ namespace FinsaWeb.Controllers.API
 
         // PUT: api/APICorsi/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]Corso value)
+        public IActionResult Put(int id, [FromBody]Corso value)
         {
-            //Corso daAggiornare = context.Corsi.Single(c => c.IdCorso == id);
+            //Corso daAggiornare = context.Corsi.Find(id);
             //if(daAggiornare == null)
             //{
             //    return NotFound();
             //}
-            //daAggiornare.IdAllievo = value.IdAllievo;
-            //daAggiornare.IdEdizioneCorso = value.IdEdizioneCorso;
-            //daAggiornare.Voto = value.Voto;
+            //daAggiornare.Titolo = value.Titolo;
+            //daAggiornare.PrezzoBase = value.PrezzoBase;
+            //daAggiornare.Difficolta = value.Difficolta;
             try
             {
-                Corso daAggiornare = context.Corsi.Find(id);
-                daAggiornare.IdAllievo = value.IdAllievo;
-                daAggiornare.IdEdizioneCorso = value.IdEdizioneCorso;
-                daAggiornare.Voto = value.Voto;
-               // context.Corsi.Update(value);
+                value.IdCorso = id;
+                context.Corsi.Update(value);
                 context.SaveChanges();
             }
-            catch(DbUpdateConcurrencyException e)
+            catch (DbUpdateConcurrencyException e)
             {
                 return NotFound();
             }
-           // return Ok(value);
+
+
+            return Ok(value);
         }
 
 
@@ -121,12 +119,12 @@ namespace FinsaWeb.Controllers.API
                 return NotFound();
             }
 
-            /*Corso daPatchareNew = new Corso
-            {
-                IdAllievo = daPatchareFromStore.IdAllievo,
-                IdEdizioneCorso = daPatchareFromStore.IdEdizioneCorso,
-                Voto = daPatchareFromStore.Voto
-            };*/
+            //Corso daPatchareNew = new Corso
+            //{
+            //    Titolo = daPatchareFromStore.Titolo,
+            //    PrezzoBase = daPatchareFromStore.PrezzoBase,
+            //    Difficolta = daPatchareFromStore.Difficolta
+            //};
 
             jsonPatchDocument.ApplyTo(daPatchareFromStore, ModelState);
 
