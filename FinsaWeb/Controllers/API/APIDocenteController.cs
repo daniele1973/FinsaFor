@@ -14,11 +14,11 @@ namespace FinsaWeb.Controllers.API
 {
     [Produces("application/json")]
     [Route("api/Docente")]
-    public class DocenteController : Controller
+    public class APIDocenteController : Controller
     {
         public const string ROUTE_GET_COURSE = "ROUTE_GET_COURSE";
         private IDocenteUnitOfWork work;
-        public DocenteController(IDocenteUnitOfWork work)
+        public APIDocenteController(IDocenteUnitOfWork work)
         {
             this.work = work;
         }

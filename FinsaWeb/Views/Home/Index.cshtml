@@ -2,14 +2,16 @@
 @addTagHelper *, AuthoringTagHelpers
 
 @using FinsaForEver.Controllers
-@model Pippo
+@using FinsaWeb.Views.Shared
+@model ViewBag
 
-<h1>@Model.Testo1</h1>
+<h1>@Model.TestoTitolo</h1>
 
 <p><a asp-controller="Corsi" asp-action="Corsi">Corsi</a></p>
 <p><a asp-controller="EdizioniCorsi" asp-action="Visualizza">Edizioni Corsi</a></p>
 <p><a asp-controller="Allievi" asp-action="Index">Allievi</a></p>
 <p><a asp-controller="CorsiAllievi" asp-action="CorsiAllievi">CorsiAllievi</a></p>
+<p><a asp-controller="Docenti" asp-action="Docenti">Docenti</a></p>
 
 <br />
 @*<p><a href="Corsi/Corsi">Corsi</a></p>

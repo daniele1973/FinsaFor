@@ -8,7 +8,7 @@ namespace FinsaWeb.Controllers
 {
     public class DocentiController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Docenti()
         {
             
             return View();
