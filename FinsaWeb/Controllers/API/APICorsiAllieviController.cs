@@ -31,7 +31,7 @@ namespace FinsaWeb.Controllers.API
         }
 
         // GET: api/APICorsiAllievi/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}", Name = "GetAPICorsiAllievi")]
         public IActionResult Get(int id)
         {
             CorsoAllievo corso = context.CorsiAllievi.Find(id);
