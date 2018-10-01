@@ -1,7 +1,5 @@
 ﻿
-@using FinsaWeb.Models.InMemory;
-@using FinsaWeb.Models.CoreNocciolo;
-@using FinsaWeb.Models;
+
 
 @{
     ViewData["Title"] = "Index";
@@ -9,33 +7,9 @@
 
 <h2>ALLIEVI</h2>
 
-@model IEnumerable<Allievo>
-@foreach (var c in Model)
-{
+<p><a asp-controller="Allievi" asp-action="Inserisci">Inserisci un Allievo</a></p>
+<p><a asp-controller="Allievi" asp-action="Visualizza">Visualizza Allievi</a></p>
 
-    <div>
-        <span>
-            Course: @c.IdStudente
-        </span>
-        <br />
-        <span>
-            @c.Nome
-        </span>
-        <span>
-               @c.Cognome
-        </span>
-        <br />
-        <span>
-            CF: @c.CodiceFiscale
-        </span>
-        <br />
-        <span>
-            Type: @c.TipoStudente
-        </span>
-    </div>
-    <br/>
-
-}
 
 
 
