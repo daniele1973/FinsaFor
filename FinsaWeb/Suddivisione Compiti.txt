@@ -1,0 +1,13 @@
+﻿Daniele: Corsi, EdizioniCorsi
+
+Gianluca: Allievi (usare sempre "Allievo" o "Allievi", e mai "Studente" o "Studenti")
+
+Davide: Docenti (mai "Insegnante/i", vedi sopra)
+
+Alessandro: CorsiAllievi
+
+Marco: CorsiDocenti
+
+Per i NOMI DEI CAMPI, LE PK e le FK, vedete l'immagine "ArchitetturaDB.png" nell'albero di progetto FinsaWeb
+
+

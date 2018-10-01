@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FinsaWeb.Controllers
+namespace FinsaWeb.Controllers.API
 {
-    public class Class
+    public class APIAllieviController
     {
     }
 }

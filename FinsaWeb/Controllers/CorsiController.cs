@@ -39,7 +39,9 @@ namespace FinsaWeb.Controllers
         }
         public IActionResult InserimentoCompleto()
         {
-            return View();
+            var result = repo.FindAll();
+           
+            return View("corsi", result);
         }
     }
 }

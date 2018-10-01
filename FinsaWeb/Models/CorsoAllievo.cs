@@ -6,14 +6,19 @@ using System.Linq;
 using System.Threading.Tasks;
 
 public class CorsoAllievo
-{
-    
-    public int IDAllievo { get; set; }
-    public int IDEdizioneCorso { get; set; }
+{   
+    [Required]
+    [RegularExpression(@"^[0-9,\.]+$", ErrorMessage="Inserire solo numeri")]
+    public int IdAllievo { get; set; }
+
+    [Required]
+    [RegularExpression(@"^[0-9,\.]+$", ErrorMessage="Inserire solo numeri")]
+    public int IdEdizioneCorso { get; set; }
+
+    [Required]
+    [RegularExpression(@"^[0-9,\.]+$", ErrorMessage="Inserire solo numeri")]
     public int? Voto { get; set; }
 
-    public EdizioneCorso EdizioneCorso { get; set; }
     public Allievo Allievo { get; set; }
-
-    // public void Inserisci(int ID, int voto){}
+    public EdizioneCorso EdizioneCorso { get; set; }
 }

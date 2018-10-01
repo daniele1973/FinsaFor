@@ -22,7 +22,7 @@ namespace FinsaForEver.Controllers
         public IActionResult Index()
         {
             var p = new Pippo();
-            p.Testo1 = "Concettualmente";
+            p.Testo1 = "FINSA Course Manager";
             
             return View(p);
         }
