@@ -10,7 +10,7 @@ namespace FinsaWeb.Models.EF.UoW
 {
     public class EFAllieviUnitOfWork : IAllieviUnitOfWork
     {
-        public IAllieviRepository AllieviRepo => throw new NotImplementedException();
+        public IAllieviRepository AllieviRepo => repo;
 
         private FinsaContext ctx;
         private IAllieviRepository repo;
