@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FinsaWeb.Models;
+using FinsaWeb.Models.CoreNocciolo.UoW;
 using FinsaWeb.Models.EF;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
@@ -15,18 +16,18 @@ namespace FinsaWeb.Controllers.API
     [Route("api/APICorsi")]
     public class APICorsiController : Controller
     {
-        private FinsaContext context;
+        private ICorsiUnitOfWork work;
 
-        public APICorsiController(FinsaContext context)
+        public APICorsiController(ICorsiUnitOfWork work)
         {
-            this.context = context;
+            this.work = work;
         }
 
         // GET: api/APICorsi
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult GetAll()
         {
-            List<Corso> corsi = context.Corsi.ToList();
+            var corsi = work.CorsiRepo.FindAll().Select(c => c.ToDTO());
             return Ok(corsi);
         }
 
