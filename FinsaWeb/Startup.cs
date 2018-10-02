@@ -28,6 +28,13 @@ namespace FinsaWeb
         {
             services.AddDbContext<FinsaContext>(opts => opts.UseSqlServer(
           configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddCors(o => o.AddPolicy("MyPolicyCORS", builder =>
+              {
+                  builder.AllowAnyOrigin()
+                         .AllowAnyMethod()
+                         .AllowAnyHeader();
+              }));
             //services.AddTransient<CourseRepository, InMemoryCourseRepository>();
             services.AddTransient<ICorsiRepository, EFCorsiRepository>();
             services.AddTransient<IEdizioniCorsiRepository, EFEdizioniCorsiRepository>();
@@ -36,6 +43,7 @@ namespace FinsaWeb
             services.AddTransient<IDocenteUnitOfWork, EFDocentiUnitOfWork>();
             services.AddTransient<IDocentiRepository, EFDocentiRepository>();
             services.AddTransient<ICorsiDocentiRepository, EFCorsiDocentiRepository>();
+            services.AddTransient<IAllieviUnitOfWork, EFAllieviUnitOfWork>();
             services.AddMvc();
         }
 
@@ -48,6 +56,7 @@ namespace FinsaWeb
             }
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
+            app.UseCors("MyPolicyCORS");
             //app.Run(async (context) =>
             //{
             //    await context.Response.WriteAsync("Hello World!");

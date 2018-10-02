@@ -20,9 +20,29 @@ namespace FinsaWeb.Models.EF
             context.SaveChanges();
         }
 
+        public void Delete(Allievo studente)
+        {
+            context.Allievi.Remove(studente);
+        }
+
+        public Allievo Find(int id)
+        {
+            return context.Allievi.Find(id);
+        }
+
         public IEnumerable<Allievo> FindAll()
         {
             return context.Allievi.ToList();
+        }
+
+        public IEnumerable<Allievo> FindByName(string name)
+        {
+            return context.Allievi.Where(x => x.Nome == name).ToList();
+        }
+
+        public void Update(Allievo studente)
+        {
+            context.Allievi.Update(studente);
         }
     }
 }

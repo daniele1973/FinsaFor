@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace FinsaWeb.Controllers.API
 {
     [Produces("application/json")]
-    [Route("api/APICorsi")]
+    [Route("api/APICorsiAllievi")]
     public class APICorsiAllieviController : Controller
     {
         private FinsaContext context;
@@ -22,20 +22,20 @@ namespace FinsaWeb.Controllers.API
             this.context = context;
         }
 
-        // GET: api/APICorsi
+        // GET: api/APICorsiAllievi
         [HttpGet]
         public IActionResult Get()
         {
-            List<Corso> corsi = context.Corsi.ToList();
+            List<CorsoAllievo> corsi = context.CorsiAllievi.ToList();
             return Ok(corsi);
         }
 
-        // GET: api/APICorsi/5
-        [HttpGet("{id}", Name = "Get")]
+        // GET: api/APICorsiAllievi/5
+        [HttpGet("{id}", Name = "GetAPICorsiAllievi")]
         public IActionResult Get(int id)
         {
-            Corso corso = context.Corsi.Find(id);
-            // Corso corso = context.Corsi.Single(c => c.IdCorso == id);
+            CorsoAllievo corso = context.CorsiAllievi.Find(id);
+            // CorsoAllievo corso = context.Corsi.Single(c => c.IdCorso == id);
             if (corso == null)
             {
                 return NotFound();
@@ -43,53 +43,51 @@ namespace FinsaWeb.Controllers.API
             return Ok(corso);
         }
 
-        // GET: api/APICorsi/PerNome/"Cors"
-        [HttpGet("PerNome/{substring?}", Name = "GetByName")]
+        // GET: api/APICorsiAllievi/PerNome/"Cors"
+        /*[HttpGet("PerNome/{substring?}", Name = "GetByName")]
         public IActionResult GetByName(string substring = "")
         {
-            List<Corso> corsi = context.Corsi.Where(c => c.Titolo.Contains(substring)).ToList();
+            List<CorsoAllievo> corsi = context.CorsiAllievi.Where(c => c.Titolo.Contains(substring)).ToList();
             return Ok(corsi);
-        }
+        }*/
 
-        // POST: api/APICorsi
+        // POST: api/APICorsiAllievi
         [HttpPost]
-        public void Post([FromBody]Corso value)
+        public void Post([FromBody]CorsoAllievo value)
         {
-            Corso daInserire = new Corso()
+            CorsoAllievo daInserire = new CorsoAllievo()
             {
-                Titolo = value.Titolo,
-                PrezzoBase = value.PrezzoBase,
-                Difficolta = value.Difficolta
+                IdAllievo = value.IdAllievo,
+                IdEdizioneCorso = value.IdEdizioneCorso,
+                Voto = value.Voto
             };
-
-            context.Corsi.Add(daInserire);
+            context.CorsiAllievi.Add(daInserire);
             context.SaveChanges();
         }
 
-        // PUT: api/APICorsi/5
+        // PUT: api/APICorsiAllievi/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]Corso value)
+        public IActionResult Put(int id, [FromBody]CorsoAllievo value)
         {
-            //Corso daAggiornare = context.Corsi.Find(id);
-            //if(daAggiornare == null)
-            //{
-            //    return NotFound();
-            //}
-            //daAggiornare.Titolo = value.Titolo;
-            //daAggiornare.PrezzoBase = value.PrezzoBase;
-            //daAggiornare.Difficolta = value.Difficolta;
             try
             {
-                value.IdCorso = id;
-                context.Corsi.Update(value);
+                CorsoAllievo daAggiornare = context.CorsiAllievi.Find(id);
+                if (daAggiornare == null)
+                {
+                    return NotFound();
+                }
+                daAggiornare.IdAllievo = value.IdAllievo;
+                daAggiornare.IdEdizioneCorso = value.IdEdizioneCorso;
+                daAggiornare.Voto = value.Voto;
+
+                //value.IdCorso = id;
+                //context.Corsi.Update(value);
                 context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException e)
             {
                 return NotFound();
             }
-
-
             return Ok(value);
         }
 
@@ -98,32 +96,33 @@ namespace FinsaWeb.Controllers.API
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            Corso daCancellare = context.Corsi.Single(c => c.IdCorso == id);
-            context.Corsi.Remove(daCancellare);
+            // Corso daCancellare = context.Corsi.Single(c => c.IdCorso == id);
+            CorsoAllievo daCancellare = context.CorsiAllievi.Find(id);
+            context.CorsiAllievi.Remove(daCancellare);
             context.SaveChanges();
         }
 
-        // _dg_ PATCH: api/APICorsi/5
+        // _dg_ PATCH: api/APICorsiAllievi/5
         [HttpPatch("{id}")]
-        public IActionResult Patch(int id, [FromBody] JsonPatchDocument<Corso> jsonPatchDocument)
+        public IActionResult Patch(int id, [FromBody] JsonPatchDocument<CorsoAllievo> jsonPatchDocument)
         {
             if (jsonPatchDocument == null)
             {
                 return BadRequest();
             }
 
-            Corso daPatchareFromStore = context.Corsi.FirstOrDefault(c => c.IdCorso == id);
+            //CorsoAllievo daPatchareFromStore = context.CorsiAllievi.FirstOrDefault(c => c.IdCorso == id);
+            CorsoAllievo daPatchareFromStore = context.CorsiAllievi.Find(id);
 
             if (daPatchareFromStore == null)
             {
                 return NotFound();
             }
-
             //Corso daPatchareNew = new Corso
             //{
-            //    Titolo = daPatchareFromStore.Titolo,
-            //    PrezzoBase = daPatchareFromStore.PrezzoBase,
-            //    Difficolta = daPatchareFromStore.Difficolta
+            //    IdAllievo = daPatchareFromStore.IdAllievo,
+            //    IdEdizioneCorso = daPatchareFromStore.IdEdizioneCorso,
+            //    Voto = daPatchareFromStore.Voto
             //};
 
             jsonPatchDocument.ApplyTo(daPatchareFromStore, ModelState);
@@ -139,13 +138,11 @@ namespace FinsaWeb.Controllers.API
             {
                 return BadRequest(ModelState);
             }
-
-            //daPatchareFromStore.Titolo = daPatchareNew.Titolo;
-            //daPatchareFromStore.Difficolta = daPatchareNew.Difficolta;
-            //daPatchareFromStore.PrezzoBase = daPatchareNew.PrezzoBase;
+            //daPatchareFromStore.IdAllievo = daPatchareNew.IdAllievo;
+            //daPatchareFromStore.IdEdizioneCorso = daPatchareNew.IdEdizioneCorso;
+            //daPatchareFromStore.Voto = daPatchareNew.Voto;
 
             context.SaveChanges();
-
             return NoContent();
         }
     }

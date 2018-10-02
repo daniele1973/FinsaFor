@@ -13,19 +13,19 @@ namespace FinsaWeb.Models.InMemory
         {
             new Allievo
             {
-                IdAllievo=1,
+                IdStudente=1,
                 Nome = "Italo",
                 Cognome="Calvino",
                 CodiceFiscale="ITLCLV44A35D969M",
-                TipoAllievo="Cantastorie"
+                TipoStudente="Cantastorie"
             },
              new Allievo
             {
-                IdAllievo=2,
+                IdStudente=2,
                 Nome="Ibrahimovich",
                 Cognome="Slatan",
                 CodiceFiscale="IHVSLT86A24D756M",
-                TipoAllievo = "Pallonaro"
+                TipoStudente = "Pallonaro"
             }
 
         };
@@ -33,6 +33,16 @@ namespace FinsaWeb.Models.InMemory
         public void Add(Allievo Studente)
         {
             listaAllievi.Add(Studente);
+        }
+
+        public void Delete(Allievo doc)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Allievo Find(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public IEnumerable<Allievo> FindAll()
@@ -49,6 +59,16 @@ namespace FinsaWeb.Models.InMemory
             //return lista;
             //return courses.Where(c => c.Title.Contains(title));
             return listaAllievi;
+        }
+
+        public IEnumerable<Allievo> FindByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Allievo doc)
+        {
+            throw new NotImplementedException();
         }
     }
 }
