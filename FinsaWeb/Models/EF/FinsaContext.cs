@@ -25,7 +25,7 @@ namespace FinsaWeb.Models.EF
             #region Allievo
 
             modelBuilder.Entity<Allievo>()
-                .HasKey(a => a.IdAllievo);
+                .HasKey(a => a.IdStudente);
 
             #endregion
 

@@ -60,8 +60,8 @@ namespace FinsaWeb.Controllers.API
             Corso daInserire = new Corso()
             {
                 Titolo = value.Titolo,
-                PrezzoBase = value.PrezzoBase,
-                Difficolta = value.Difficolta
+                Difficolta = value.Difficolta,
+                PrezzoBase = value.PrezzoBase
             };
 
             context.Corsi.Add(daInserire);
@@ -72,26 +72,33 @@ namespace FinsaWeb.Controllers.API
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody]Corso value)
         {
-            //Corso daAggiornare = context.Corsi.Find(id);
+            //Corso daAggiornare = context.Corsi.Single(c => c.IdCorso == id);
             //if(daAggiornare == null)
             //{
             //    return NotFound();
             //}
             //daAggiornare.Titolo = value.Titolo;
-            //daAggiornare.PrezzoBase = value.PrezzoBase;
             //daAggiornare.Difficolta = value.Difficolta;
+            //daAggiornare.PrezzoBase = value.PrezzoBase;
             try
             {
-                value.IdCorso = id;
-                context.Corsi.Update(value);
+                Corso daAggiornare = context.Corsi.Find(id);
+                if(daAggiornare == null)
+                {
+                    return NotFound();
+                }
+                daAggiornare.Titolo = value.Titolo;
+                daAggiornare.Difficolta = value.Difficolta;
+                daAggiornare.PrezzoBase = value.PrezzoBase;
+               // context.Corsi.Update(value);
+
                 context.SaveChanges();
+                //return NoContent();
             }
             catch(DbUpdateConcurrencyException e)
             {
                 return NotFound();
             }
-
-
             return Ok(value);
         }
 
@@ -121,12 +128,12 @@ namespace FinsaWeb.Controllers.API
                 return NotFound();
             }
 
-            //Corso daPatchareNew = new Corso
-            //{
-            //    Titolo = daPatchareFromStore.Titolo,
-            //    PrezzoBase = daPatchareFromStore.PrezzoBase,
-            //    Difficolta = daPatchareFromStore.Difficolta
-            //};
+            /*Corso daPatchareNew = new Corso
+            {
+                Titolo = daPatchareFromStore.Titolo,
+                Difficolta = daPatchareFromStore.Difficolta,
+                PrezzoBase = daPatchareFromStore.PrezzoBase
+            };*/
 
             jsonPatchDocument.ApplyTo(daPatchareFromStore, ModelState);
 

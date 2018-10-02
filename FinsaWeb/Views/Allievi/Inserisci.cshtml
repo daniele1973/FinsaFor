@@ -1,0 +1,46 @@
+﻿@using FinsaWeb.Models
+@model Allievo
+<style>
+    .text-danger{color: red;}
+</style>
+@*<link href="~/css/site.css" type="text/css" />*@
+<form asp-action="Inserisci" method="post" class="form-horizontal" role="form">
+    <div asp-validation-summary="All" class="text-danger"></div> @*Tag Helper. Tag con gli steroidi. Esegue codice lato server. --> In qs div stamperemo tutti i messaggi di errore relativi a questa form*@
+
+    <div class="form-group">
+        @*Bootstrap*@
+        <label asp-for="Nome" class="col-md-2 control-label"></label> @*NB: la label non definisce un testo! Siccome è la label per il campo Name, di default ci mette il nome della proprietà. Se per es è in CamelCase e vuoi stampare altro c'è modo di dirglielo*@
+        <div class="col-md-5">
+            <textarea asp-for="Nome" class="form-control"></textarea>@*quello che metti nel campo finisce magicamente nella proprietà Name dell'obj di classe Feedback che gli abbiamo passato come Model. Alla fine non è che la form fa il post dell'obj FeedBack, manda una POST normale, ma ricalca le proprietà dell'obj di classe Feedback+
+        +*@
+            <span asp-validation-for="Nome" class="text-danger"></span> <!-- se gli passo un Model che ha una proprietà Name, la prende e la mette qui come valore predefinito di questo campo della form-->
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Cognome" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <textarea asp-for="Cognome" class="form-control"></textarea>
+            <span asp-validation-for="Cognome" class="text-danger"></span>@*Errore sul singolo campo*@
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CodiceFiscale" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <textarea asp-for="CodiceFiscale" class="form-control"></textarea>
+            <span asp-validation-for="CodiceFiscale" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TipoStudente" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <textarea asp-for="TipoStudente" class="form-control"></textarea>
+            <span asp-validation-for="TipoStudente" class="text-danger"></span>
+        </div>
+    </div>
+
+    <input type="submit" />
+
+</form>
