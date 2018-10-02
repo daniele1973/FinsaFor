@@ -2,6 +2,7 @@
 using FinsaWeb.DTO.Extentions;
 using FinsaWeb.Models;
 using FinsaWeb.Models.CoreNocciolo.UoW;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace FinsaWeb.Controllers.API
 {
     [Produces("application/json")]
     [Route("api/APIAllievi")]
+    [EnableCors("MyPolicyCORS")]
     public class APIAllieviController : Controller
     {
         public const string ROUTE_GET_ALLIEVI = "ROUTE_GET_ALLIEVI";
