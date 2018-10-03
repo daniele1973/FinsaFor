@@ -26,15 +26,16 @@ namespace FinsaWeb
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(o => o.AddPolicy("MyPolicyCORS", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
             services.AddDbContext<FinsaContext>(opts => opts.UseSqlServer(
           configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddCors(o => o.AddPolicy("MyPolicyCORS", builder =>
-              {
-                  builder.AllowAnyOrigin()
-                         .AllowAnyMethod()
-                         .AllowAnyHeader();
-              }));
             //services.AddTransient<CourseRepository, InMemoryCourseRepository>();
             services.AddTransient<ICorsiRepository, EFCorsiRepository>();
             services.AddTransient<ICorsiUnitOfWork, EFCorsiUnitOfWork>();
@@ -55,9 +56,10 @@ namespace FinsaWeb
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors("MyPolicyCORS");
+
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
-            app.UseCors("MyPolicyCORS");
             //app.Run(async (context) =>
             //{
             //    await context.Response.WriteAsync("Hello World!");
