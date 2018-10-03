@@ -20,9 +20,19 @@ namespace FinsaWeb.Models.EF
             context.SaveChanges();
         }
 
+        public Corso Find(int id)
+        {
+            return context.Corsi.Find(id);
+        }
+
         public IEnumerable<Corso> FindAll()
         {
             return context.Corsi.ToList();
+        }
+
+        public IEnumerable<Corso> FindByName(string s)
+        {
+            return context.Corsi.Where(c => c.Titolo.Contains(s));
         }
     }
 }

@@ -9,7 +9,21 @@ namespace FinsaWeb.Models.EF.UoW
 {
     public class EFCorsiUnitOfWork : ICorsiUnitOfWork
     {
-        public ICorsiRepository CorsiRepo => throw new NotImplementedException();
+        //public ICorsiRepository CorsiRepo => throw new NotImplementedException();
+
+        //public IEdizioniCorsiRepository EdizioniCorsi => throw new NotImplementedException();
+
+        public ICorsiRepository CorsiRepo => repo;
+
+        private FinsaContext ctx;
+        private ICorsiRepository repo;
+        public EFCorsiUnitOfWork(ICorsiRepository repo, FinsaContext ctx)
+        {
+            this.repo = repo;
+            this.ctx = ctx;
+        }
+
+
 
         public void Begin()
         {

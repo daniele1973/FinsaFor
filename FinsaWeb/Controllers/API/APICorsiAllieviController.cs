@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace FinsaWeb.Controllers.API
 {
     [Produces("application/json")]
-    [Route("api/APICorsiAllievi")]
+    [Route("api/CorsiAllievi")]
     public class APICorsiAllieviController : Controller
     {
         private FinsaContext context;

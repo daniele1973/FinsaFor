@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FinsaWeb.Controllers.API
 {
     [Produces("application/json")]
-    [Route("api/APIEdizioniCorsi")]
+    [Route("api/EdizioniCorsi")]
     public class APIEdizioniCorsiController : Controller
     {
         FinsaContext context;

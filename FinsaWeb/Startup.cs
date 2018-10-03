@@ -37,6 +37,7 @@ namespace FinsaWeb
               }));
             //services.AddTransient<CourseRepository, InMemoryCourseRepository>();
             services.AddTransient<ICorsiRepository, EFCorsiRepository>();
+            services.AddTransient<ICorsiUnitOfWork, EFCorsiUnitOfWork>();
             services.AddTransient<IEdizioniCorsiRepository, EFEdizioniCorsiRepository>();
             services.AddTransient<IAllieviRepository, EFAllieviRepository>();
             services.AddTransient<ICorsiAllieviRepository, EFCorsiAllieviRepository>();

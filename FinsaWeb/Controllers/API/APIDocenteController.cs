@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FinsaWeb.Controllers.API
 {
     [Produces("application/json")]
-    [Route("api/Docente")]
+    [Route("api/Docenti")]
     public class APIDocenteController : Controller
     {
         public const string ROUTE_GET_COURSE = "ROUTE_GET_COURSE";
@@ -30,7 +30,7 @@ namespace FinsaWeb.Controllers.API
             {
                 return BadRequest();
             }
-            Docente doc = work.Docenti.Find(id);
+            Docente doc = work.DocentiRepo.Find(id);
             if (doc == null)
             {
                 return NotFound();
@@ -41,9 +41,9 @@ namespace FinsaWeb.Controllers.API
         [HttpGet]
         public IActionResult GetAll()
         {
-            var docenti = work.Docenti.FindAll().Select(d => d.ToDTO());
+            var docenti = work.DocentiRepo.FindAll().Select(d => d.ToDTO());
 
-            docenti.Where(doc => doc.Nome == "pippo");
+            //docenti.Where(doc => doc.Nome == "pippo");
             //List<DocenteDTO> docs = new List<DocenteDTO>();
             //for(int i = 0; i < docenti.Count(); i++)
             //{
@@ -62,7 +62,7 @@ namespace FinsaWeb.Controllers.API
             }
             Docente doc = docDTO.ToDocente();
             work.Begin();
-            work.Docenti.Add(doc);
+            work.DocentiRepo.Add(doc);
             work.Save();
             work.End();
             return CreatedAtRoute(ROUTE_GET_COURSE, new { id = doc.IdDocente }, doc.ToDTO()); //risp al client
@@ -79,7 +79,7 @@ namespace FinsaWeb.Controllers.API
             try
             {
                work.Begin();
-               work.Docenti.Update(doc);
+               work.DocentiRepo.Update(doc);
                work.Save();
                work.End();
 

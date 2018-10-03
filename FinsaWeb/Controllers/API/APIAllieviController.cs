@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace FinsaWeb.Controllers.API
 {
     [Produces("application/json")]
-    [Route("api/APIAllievi")]
+    [Route("api/Allievi")]
     [EnableCors("MyPolicyCORS")]
     public class APIAllieviController : Controller
     {
