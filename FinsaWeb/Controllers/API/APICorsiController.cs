@@ -9,15 +9,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using FinsaWeb.DTO.Extentions;
+using FinsaWeb.DTO;
 
 namespace FinsaWeb.Controllers.API
 {
     [Produces("application/json")]
-    [Route("api/APICorsi")]
+    [Route("api/Corsi")]
     public class APICorsiController : Controller
     {
         private ICorsiUnitOfWork work;
-
         public APICorsiController(ICorsiUnitOfWork work)
         {
             this.work = work;
@@ -27,6 +28,16 @@ namespace FinsaWeb.Controllers.API
         [HttpGet]
         public IActionResult GetAll()
         {
+            //CorsoDTO corsoDTO = new CorsoDTO
+            //{
+            //    IdCorso = 1111,
+            //    Difficolta = 10,
+            //    Titolo = "Cccccc",
+            //    PrezzoBase = 10
+            //};
+            //List<CorsoDTO> corsi = new List<CorsoDTO>();
+            //corsi.Add(corsoDTO);
+
             var corsi = work.CorsiRepo.FindAll().Select(c => c.ToDTO());
             return Ok(corsi);
         }
@@ -35,7 +46,7 @@ namespace FinsaWeb.Controllers.API
         [HttpGet("{id}", Name = "Get")]
         public IActionResult Get(int id)
         {
-            Corso corso = context.Corsi.Find(id);
+            CorsoDTO corso = work.CorsiRepo.Find(id).ToDTO();
             if (corso == null)
             {
                 return NotFound();
@@ -49,11 +60,11 @@ namespace FinsaWeb.Controllers.API
         [HttpGet("PerNome/{substring?}", Name = "GetByName")]
         public IActionResult GetByName(string substring = "")
         {
-            List<Corso> corsi = context.Corsi.Where(c => c.Titolo.Contains(substring)).ToList();
+            var corsi = work.CorsiRepo.FindByName(substring).Select(c => c.ToDTO()); ;
             return Ok(corsi);
         }
 
-        // POST: api/APICorsi
+ /*       // POST: api/APICorsi
         [HttpPost]
         public void Post([FromBody]Corso value)
         {
@@ -128,12 +139,12 @@ namespace FinsaWeb.Controllers.API
                 return NotFound();
             }
 
-            /*Corso daPatchareNew = new Corso
-            {
-                Titolo = daPatchareFromStore.Titolo,
-                Difficolta = daPatchareFromStore.Difficolta,
-                PrezzoBase = daPatchareFromStore.PrezzoBase
-            };*/
+            //Corso daPatchareNew = new Corso
+            //{
+            //    Titolo = daPatchareFromStore.Titolo,
+            //    Difficolta = daPatchareFromStore.Difficolta,
+            //    PrezzoBase = daPatchareFromStore.PrezzoBase
+            //};
 
             jsonPatchDocument.ApplyTo(daPatchareFromStore, ModelState);
 
@@ -156,6 +167,6 @@ namespace FinsaWeb.Controllers.API
             context.SaveChanges();
 
             return NoContent();
-        }
+        } */
     }
 }

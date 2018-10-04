@@ -18,7 +18,7 @@ namespace FinsaWeb.Models.EF.UoW
             this.ctx = ctx;
         }
 
-        public IDocentiRepository Docenti { get =>  repo; }
+        public IDocentiRepository DocentiRepo { get =>  repo; }
 
         public void Begin()
         {

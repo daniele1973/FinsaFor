@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace FinsaWeb.DTO.Extentions
 {
-    public static class CorsiDTOExtensions
+    public static class CorsoDTOExtensions
     {
-        public static CorsiDTO ToDTO(this Corso corso)
+        public static CorsoDTO ToDTO(this Corso corso)
         {
-            return new CorsiDTO
+            if (corso==null) { return null; }
+
+            return new CorsoDTO
             {
                 IdCorso = corso.IdCorso,
                 Difficolta=corso.Difficolta,

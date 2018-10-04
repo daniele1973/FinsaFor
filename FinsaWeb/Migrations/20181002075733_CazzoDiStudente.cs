@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace FinsaWeb.Migrations
 {
-    public partial class ArchitetturaDatabaseDebuggata : Migration
+    public partial class CazzoDiStudente : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,16 +13,16 @@ namespace FinsaWeb.Migrations
                 name: "Allievi",
                 columns: table => new
                 {
-                    IdAllievo = table.Column<int>(nullable: false)
+                    IdStudente = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CodiceFiscale = table.Column<string>(nullable: true),
-                    Cognome = table.Column<string>(nullable: true),
-                    Nome = table.Column<string>(nullable: true),
-                    TipoAllievo = table.Column<string>(nullable: true)
+                    CodiceFiscale = table.Column<string>(nullable: false),
+                    Cognome = table.Column<string>(nullable: false),
+                    Nome = table.Column<string>(nullable: false),
+                    TipoStudente = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Allievi", x => x.IdAllievo);
+                    table.PrimaryKey("PK_Allievi", x => x.IdStudente);
                 });
 
             migrationBuilder.CreateTable(
@@ -83,7 +83,7 @@ namespace FinsaWeb.Migrations
                 {
                     IdAllievo = table.Column<int>(nullable: false),
                     IdEdizioneCorso = table.Column<int>(nullable: false),
-                    Voto = table.Column<int>(nullable: true)
+                    Voto = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -92,7 +92,7 @@ namespace FinsaWeb.Migrations
                         name: "FK_CorsiAllievi_Allievi_IdAllievo",
                         column: x => x.IdAllievo,
                         principalTable: "Allievi",
-                        principalColumn: "IdAllievo",
+                        principalColumn: "IdStudente",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CorsiAllievi_EdizioniCorsi_IdEdizioneCorso",

@@ -26,7 +26,8 @@ namespace FinsaWeb.Migrations
 
                     b.Property<int>("IdEdizioneCorso");
 
-                    b.Property<int?>("Voto");
+                    b.Property<int?>("Voto")
+                        .IsRequired();
 
                     b.HasKey("IdAllievo", "IdEdizioneCorso");
 
@@ -37,18 +38,22 @@ namespace FinsaWeb.Migrations
 
             modelBuilder.Entity("FinsaWeb.Models.Allievo", b =>
                 {
-                    b.Property<int>("IdAllievo")
+                    b.Property<int>("IdStudente")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CodiceFiscale");
+                    b.Property<string>("CodiceFiscale")
+                        .IsRequired();
 
-                    b.Property<string>("Cognome");
+                    b.Property<string>("Cognome")
+                        .IsRequired();
 
-                    b.Property<string>("Nome");
+                    b.Property<string>("Nome")
+                        .IsRequired();
 
-                    b.Property<string>("TipoAllievo");
+                    b.Property<string>("TipoStudente")
+                        .IsRequired();
 
-                    b.HasKey("IdAllievo");
+                    b.HasKey("IdStudente");
 
                     b.ToTable("Allievi");
                 });
