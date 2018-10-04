@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\API\APICorsiAllieviController.cs" />
+    <Compile Remove="Controllers\API\APICorsiController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
   </ItemGroup>
@@ -12,6 +17,12 @@
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.1" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="Controllers\API\APICorsiAllieviController.cs" />
+    <None Include="Controllers\API\APICorsiController.cs" />
   </ItemGroup>
 
 </Project>

@@ -11,6 +11,8 @@ namespace FinsaWeb.Models.EF.UoW
     {
         public ICorsiRepository CorsiRepo => throw new NotImplementedException();
 
+        public IEdizioniCorsiRepository EdizioniCorsi => throw new NotImplementedException();
+
         public void Begin()
         {
             throw new NotImplementedException();
