@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FinsaWeb.DTO;
+using FinsaWeb.DTO.Extentions;
 using FinsaWeb.Models;
+using FinsaWeb.Models.CoreNocciolo.UoW;
 using FinsaWeb.Models.EF;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,31 +16,64 @@ namespace FinsaWeb.Controllers.API
     [Route("api/EdizioniCorsi")]
     public class APIEdizioniCorsiController : Controller
     {
-        FinsaContext context;
+        IEdizioniCorsiUnitOfWork work;
 
-        public APIEdizioniCorsiController(FinsaContext context)
+        public APIEdizioniCorsiController(IEdizioniCorsiUnitOfWork work)
         {
-            this.context = context;
+            this.work = work;
         }
 
-        // GET: api/APIEdizioniCorsi
+        // GET: api/EdizioniCorsi
         [HttpGet]
-        public IEnumerable<EdizioneCorso> Get()
+        public IActionResult Get()
         {
-            return context.EdizioniCorsi.ToArray();
+            var result = work.EdizioniCorsiRepo.FindAll().Select( ec => ec.ToDTO() );
+            return Ok(result);
         }
 
-        // GET: api/APIEdizioniCorsi/5
-        [HttpGet("{id}", Name = "GetEdizioniCorso")]
-        public ICollection<EdizioneCorso> Get(int id)
+        //GET: api/EdizioniCorsi/DelCorso/5
+        [HttpGet("DelCorso/{idCorso}")]
+        public IActionResult GetEditionOfCourse(int idCorso)
         {
-            return context.EdizioniCorsi.Where(ec => ec.IdCorso == id).ToArray();
+            var result = work.EdizioniCorsiRepo.FindAll().Where(ec => ec.IdCorso == idCorso);
+            return Ok(result);
+        }
+
+        // GET: api/EdizioniCorsi/5
+        [HttpGet("{idEdizioneCorso}", Name = "GetEdizioneCorso")]
+        public IActionResult Get(int idEdizioneCorso)
+        {
+            var result = work.EdizioniCorsiRepo.Find(idEdizioneCorso).ToDTO();
+            return Ok(result);
         }
         
-        // POST: api/APIEdizioniCorsi
+        // POST: api/EdizioniCorsi
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]EdizioneCorsoDTO edizioneCorsoDTO)
         {
+            if(edizioneCorsoDTO==null) { return BadRequest(); }
+
+            EdizioneCorso edizioneCorso = edizioneCorsoDTO.ToEdizioneCorso();
+
+            work.Begin();
+            work.EdizioniCorsiRepo.Add(edizioneCorso);
+            work.Save();
+            work.End();
+
+        //N.B.: il tipo anonimo che viene passato a CreatedAtRoute(,,) come secondo parametro "routeValues:"
+        //      deve avere un campo che si chiama COME IL PARAMETRO della Route passatagli come primo argomento.
+        //          (In questo caso come routeName: gli passiamo "GetEdizioneCorso", e quindi il campo del tipo anonimo
+        //           che gli passiamo come routeValues: deve chiamarsi idEdizioneCorso)
+        //      
+        //      In caso contrario, SEBBENE METTENDO UN BREAKPOINT SU return risposta; il valore di "risposta" sembri essere corretto,
+        //      Postman riceve uno status 500 (Internal Server Error) e la pagina di errore html inizia con le seguenti tre righe:
+        //      « An unhandled exception occurred while processing the request.
+        //        InvalidOperationException: No route matches the supplied values.
+        //        Microsoft.AspNetCore.Mvc.CreatedAtRouteResult.OnFormatting(ActionContext context) »
+            var risposta = CreatedAtRoute(routeName: "GetEdizioneCorso",
+                                          routeValues: new { idEdizioneCorso = edizioneCorso.IdEdizioneCorso },
+                                          value: edizioneCorso.ToDTO());
+            return risposta;
         }
         
         // PUT: api/APIEdizioniCorsi/5

@@ -34,7 +34,7 @@ namespace FinsaWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                repository.Aggiungi(edizioneCorso);
+                repository.Add(edizioneCorso);
                 return RedirectToAction("InserimentoCompleto"); //vedi metodo InserimentoCompleto qui sotto
             }
             return View(edizioneCorso);

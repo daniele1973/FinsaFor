@@ -9,7 +9,10 @@ namespace FinsaWeb.Models.CoreNocciolo
     {
         IEnumerable<Corso> FindAll();
         IEnumerable<Corso> FindByName(string s);
+
         Corso Find(int id);
-        void Aggiungi(Corso corso);
+        void Add(Corso corso);
+        void Update(Corso corso);
+        void Delete(Corso corso);
     }
 }

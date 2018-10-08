@@ -14,10 +14,10 @@ namespace FinsaWeb.Models.EF
             this.context = context;
         }
 
-        public void Aggiungi(Corso corso)
+        public void Add(Corso corso)
         {
             context.Corsi.Add(corso);
-            context.SaveChanges();
+            //context.SaveChanges();
         }
 
         public Corso Find(int id)
@@ -34,5 +34,17 @@ namespace FinsaWeb.Models.EF
         {
             return context.Corsi.Where(c => c.Titolo.Contains(s));
         }
+
+        public void Update(Corso corso)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(Corso corso)
+        {
+            throw new NotImplementedException();
+        }
+
+
     }
 }
