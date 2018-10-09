@@ -8,5 +8,6 @@ namespace FinsaWeb.Models.CoreNocciolo.UoW
     public interface IAllieviUnitOfWork : IUnitOfWork
     {
         IAllieviRepository AllieviRepo { get; }
+
     }
 }
