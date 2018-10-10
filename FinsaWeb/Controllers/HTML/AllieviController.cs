@@ -45,20 +45,10 @@ namespace FinsaWeb.Controllers
             return View(lista);
         }
 
-        public IActionResult VisualizzaPerNome()
-        {
-            return View();
-        }
-
-        [HttpPost]
         public IActionResult VisualizzaPerNome(string nome)
         {
-            if(ModelState.IsValid)
-            {
-                var stud = repo.FindByName(nome);
-                return RedirectToAction("VisualizzaPerNome", controllerName: "Allievi/Visualizza?" + stud);
-            }
-            return View(nome);
+            var stud = repo.FindByName(nome);
+            return View("Visualizza", stud);
         }
     }
 }
