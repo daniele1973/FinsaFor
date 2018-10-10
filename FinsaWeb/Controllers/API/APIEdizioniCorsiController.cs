@@ -17,9 +17,9 @@ namespace FinsaWeb.Controllers.API
     [Route("api/EdizioniCorsi")]
     public class APIEdizioniCorsiController : Controller
     {
-        IEdizioniCorsiUnitOfWork work;
+        ICorsiUnitOfWork work;
 
-        public APIEdizioniCorsiController(IEdizioniCorsiUnitOfWork work)
+        public APIEdizioniCorsiController(ICorsiUnitOfWork work)
         {
             this.work = work;
         }
@@ -63,7 +63,7 @@ namespace FinsaWeb.Controllers.API
 
             try
             {
-                work.Add(edizioneCorso);
+                work.AddEdizioneCorso(edizioneCorso);
             }
             catch (BusinessLogicException e)
             {
@@ -91,12 +91,15 @@ namespace FinsaWeb.Controllers.API
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
+            throw new NotImplementedException();
         }
         
         // DELETE: api/APIApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            throw new NotImplementedException();
+
         }
     }
 }

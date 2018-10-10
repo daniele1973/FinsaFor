@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\CoreNocciolo\UoW\IEdizioniCorsiUnitOfWork.cs" />
+    <Compile Remove="Models\EF\UoW\EFEdizioniCorsiUnitOfWork.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Controllers\API\APIEdizioneCorsoesController.cs.ERRATO" />
     <None Remove="SharpLab - Expression-bodied members.txt" />
   </ItemGroup>

@@ -1,5 +1,7 @@
 ﻿using FinsaWeb.Models.CoreNocciolo;
 using FinsaWeb.Models.CoreNocciolo.UoW;
+using FinsaWeb.Models.Exceptions;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,14 +15,22 @@ namespace FinsaWeb.Models.EF.UoW
 
         //public IEdizioniCorsiRepository EdizioniCorsi => throw new NotImplementedException();
 
-        public ICorsiRepository CorsiRepo => repo;
-
         private FinsaContext ctx;
-        private ICorsiRepository repo;
-        public EFCorsiUnitOfWork(ICorsiRepository repo, FinsaContext ctx)
+        private ICorsiRepository corsiRepo;
+        private IEdizioniCorsiRepository edizioniCorsiRepo;
+
+        public ICorsiRepository CorsiRepo => corsiRepo;
+        public IEdizioniCorsiRepository EdizioniCorsiRepo => edizioniCorsiRepo;
+
+
+
+        public EFCorsiUnitOfWork(ICorsiRepository corsiRepo,
+                                         IEdizioniCorsiRepository edizioniCorsiRepo,
+                                         FinsaContext ctx)
         {
-            this.repo = repo;
             this.ctx = ctx;
+            this.corsiRepo = corsiRepo;
+            this.edizioniCorsiRepo = edizioniCorsiRepo;
         }
 
 
@@ -43,6 +53,25 @@ namespace FinsaWeb.Models.EF.UoW
         public void Save()
         {
             ctx.SaveChanges();
+        }
+
+        public void AddEdizioneCorso(EdizioneCorso edizioneCorso)
+        {
+            Console.Error.WriteLine("AAAAAAA");
+
+            try
+            {
+                ctx.Database.BeginTransaction();
+                edizioniCorsiRepo.Add(edizioneCorso);
+                ctx.SaveChanges();
+                ctx.Database.CommitTransaction();
+            }
+            catch (DbUpdateException e)
+            {
+                ctx.Database.RollbackTransaction();
+                throw new BusinessLogicException("Errore nell'inserimento EDIZIONE CORSO", e);
+
+            }
         }
     }
 }

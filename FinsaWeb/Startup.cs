@@ -42,7 +42,7 @@ namespace FinsaWeb
 
             //services.AddTransient<IEdizioniCorsiRepository, EFEdizioniCorsiRepository>();
             services.AddTransient<IEdizioniCorsiRepository, EFEdizioniCorsiRepository>();
-            services.AddTransient<IEdizioniCorsiUnitOfWork, EFEdizioniCorsiUnitOfWork>();
+            //services.AddTransient<IEdizioniCorsiUnitOfWork, EFEdizioniCorsiUnitOfWork>();
 
             services.AddTransient<IAllieviRepository, EFAllieviRepository>();
             services.AddTransient<IAllieviUnitOfWork, EFAllieviUnitOfWork>();
