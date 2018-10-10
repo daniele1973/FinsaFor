@@ -7,6 +7,12 @@ namespace FinsaWeb.Models.CoreNocciolo
 {
     public interface ICorsiDocentiRepository
     {
-        IEnumerable<Docente> FindAll();
+        IEnumerable<CorsoDocente> FindAll();
+        //IEnumerable<CorsoDocente> FindByName(string s);
+        CorsoDocente Find(int idEdizioneCorso, int idDocente);
+
+        void Add(CorsoDocente corsoDocente);
+        void Update(CorsoDocente corsoDocente);
+        void Delete(CorsoDocente corsoDocente);
     }
 }
