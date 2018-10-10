@@ -7,6 +7,7 @@ using FinsaWeb.DTO.Extentions;
 using FinsaWeb.Models;
 using FinsaWeb.Models.CoreNocciolo.UoW;
 using FinsaWeb.Models.EF;
+using FinsaWeb.Models.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -55,10 +56,20 @@ namespace FinsaWeb.Controllers.API
 
             EdizioneCorso edizioneCorso = edizioneCorsoDTO.ToEdizioneCorso();
 
-            work.Begin();
-            work.EdizioniCorsiRepo.Add(edizioneCorso);
-            work.Save();
-            work.End();
+            //work.Begin();
+            //work.EdizioniCorsiRepo.Add(edizioneCorso);
+            //work.Save();
+            //work.End();
+
+            try
+            {
+                work.Add(edizioneCorso);
+            }
+            catch (BusinessLogicException e)
+            {
+                return BadRequest(e);
+            }
+
 
         //N.B.: il tipo anonimo che viene passato a CreatedAtRoute(,,) come secondo parametro "routeValues:"
         //      deve avere un campo che si chiama COME IL PARAMETRO della Route passatagli come primo argomento.
