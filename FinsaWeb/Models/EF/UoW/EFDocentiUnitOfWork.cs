@@ -20,6 +20,20 @@ namespace FinsaWeb.Models.EF.UoW
 
         public IDocentiRepository DocentiRepo { get =>  repo; }
 
+        public ICorsiDocentiRepository CorsiDocentiRepo => throw new NotImplementedException();
+
+        public IEdizioniCorsiRepository EdizioniCorsiRepo => throw new NotImplementedException();
+
+        public CorsoDocente AssegnaDocenza(int idEdizioneCorso, int idDocente)
+        {
+            throw new NotImplementedException();
+        }
+
+        public CorsoDocente AssegnaValutazioneMedia(int idEdizioneCorso, int idDocente, decimal valutazioneMedia)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Begin()
         {
             ctx.Database.BeginTransaction();

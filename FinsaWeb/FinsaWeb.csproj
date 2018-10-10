@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\CoreNocciolo\UoW\ICorsiDocentiUnitOfWork.cs" />
     <Compile Remove="Models\CoreNocciolo\UoW\IEdizioniCorsiUnitOfWork.cs" />
     <Compile Remove="Models\EF\UoW\EFEdizioniCorsiUnitOfWork.cs" />
   </ItemGroup>

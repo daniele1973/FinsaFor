@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FinsaWeb.Models.CoreNocciolo.UoW
 {
-    interface ICorsiDocentiUnitOfWork : IUnitOfWork
+    public interface ICorsiDocentiUnitOfWork : IUnitOfWork
     {
         ICorsiDocentiRepository CorsiDocenti { get; }
     }
