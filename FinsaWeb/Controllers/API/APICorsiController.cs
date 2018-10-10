@@ -57,7 +57,7 @@ namespace FinsaWeb.Controllers.API
 
        // POST: api/APICorsi
         [HttpPost]
-        public void Post([FromBody]Corso value)
+        public IActionResult Post([FromBody]Corso value)
         {
             Corso daInserire = new Corso()
             {
@@ -70,6 +70,8 @@ namespace FinsaWeb.Controllers.API
             work.CorsiRepo.Add(daInserire);
             work.Save();
             work.End();
+
+            return CreatedAtRoute("Get", new { id=daInserire.IdCorso }, daInserire);
         }
 
 /*       // PUT: api/APICorsi/5

@@ -1,9 +1,11 @@
 ﻿using FinsaWeb.Models.CoreNocciolo;
 using FinsaWeb.Models.CoreNocciolo.UoW;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FinsaWeb.Models.Exceptions;
 
 namespace FinsaWeb.Models.EF.UoW
 {
@@ -43,6 +45,25 @@ namespace FinsaWeb.Models.EF.UoW
         public void Save()
         {
             ctx.SaveChanges();
+        }
+
+        public void Add(EdizioneCorso edizioneCorso)
+        {
+            Console.Error.WriteLine("AAAAAAA");
+
+            try
+            {
+                ctx.Database.BeginTransaction();
+                edizioniCorsiRepo.Add(edizioneCorso);
+                ctx.SaveChanges();
+                ctx.Database.CommitTransaction();
+            }
+            catch (DbUpdateException e)
+            {
+                ctx.Database.RollbackTransaction();
+                throw new BusinessLogicException("Errore nell'inserimento EDIZIONE CORSO", e);
+               
+            }
         }
     }
 }

@@ -9,5 +9,6 @@ namespace FinsaWeb.Models.CoreNocciolo.UoW
     {
         IEdizioniCorsiRepository EdizioniCorsiRepo { get; }
         ICorsiRepository CorsiRepo { get; }
+        void Add(EdizioneCorso edizioneCorso);
     }
 }

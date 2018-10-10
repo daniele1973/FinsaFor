@@ -27,22 +27,22 @@ namespace FinsaWeb.Models.EF.UoW
 
         public void Begin()
         {
-            throw new NotImplementedException();
+            ctx.Database.BeginTransaction();
         }
 
         public void Cancel()
         {
-            throw new NotImplementedException();
+            ctx.Database.RollbackTransaction();
         }
 
         public void End()
         {
-            throw new NotImplementedException();
+            ctx.Database.CommitTransaction();
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            ctx.SaveChanges();
         }
     }
 }
