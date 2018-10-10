@@ -65,7 +65,7 @@ function vediEdizioniCorso(idCorso) {
     let intestazioni = document.getElementById("intestazioniTabEdizioniCorso");
     $.ajax({
         type: 'GET',
-        url: '/API/EdizioniCorsi/' + idCorso,
+        url: '/API/EdizioniCorsi/DelCorso/' + idCorso,
         dataType: 'json',
         success: function (datiJson) {
             console.log("success(datiJson);");

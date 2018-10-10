@@ -31,7 +31,7 @@ namespace FinsaWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                repo.Aggiungi(corso);
+                repo.Add(corso);
                 return RedirectToAction("InserimentoCompleto"); 
             }
 

@@ -43,8 +43,6 @@ namespace FinsaWeb.Controllers.API
         public IActionResult GetAll()
         {
             var studente = work.AllieviRepo.FindAll().Select(d => d.ToDTO());
-
-            studente.Where(stud => stud.Nome == "pippo");//penso non serva ci dovrebbero restare tutti
             return Ok(studente);
         }
 

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using FinsaWeb.Models.Exceptions;
 
 namespace FinsaWeb.Controllers.API
 {
@@ -53,7 +54,7 @@ namespace FinsaWeb.Controllers.API
 
         // POST: api/APICorsiAllievi
         [HttpPost]
-        public void Post([FromBody]CorsoAllievo value)
+        public IActionResult Post([FromBody]CorsoAllievo value)
         {
             CorsoAllievo daInserire = new CorsoAllievo()
             {
@@ -61,8 +62,16 @@ namespace FinsaWeb.Controllers.API
                 IdEdizioneCorso = value.IdEdizioneCorso,
                 Voto = value.Voto
             };
-            context.CorsiAllievi.Add(daInserire);
-            context.SaveChanges();
+            try
+            {               
+                context.CorsiAllievi.Add(daInserire);
+                context.SaveChanges();
+            }
+            catch(Exception e)
+            {
+                return BadRequest(new BusinessLogicException("Errore Inserimento", e));
+            }
+            return Ok(daInserire);
         }
 
         // PUT: api/APICorsiAllievi/5
@@ -74,7 +83,7 @@ namespace FinsaWeb.Controllers.API
                 CorsoAllievo daAggiornare = context.CorsiAllievi.Find(id);
                 if (daAggiornare == null)
                 {
-                    return NotFound();
+                    //return NotFound();
                 }
                 daAggiornare.IdAllievo = value.IdAllievo;
                 daAggiornare.IdEdizioneCorso = value.IdEdizioneCorso;
@@ -86,7 +95,11 @@ namespace FinsaWeb.Controllers.API
             }
             catch (DbUpdateConcurrencyException e)
             {
-                return NotFound();
+                return NotFound(new BusinessLogicException("Elemento non trovato", e));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new BusinessLogicException("Errore ", e));
             }
             return Ok(value);
         }
@@ -94,12 +107,24 @@ namespace FinsaWeb.Controllers.API
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
             // Corso daCancellare = context.Corsi.Single(c => c.IdCorso == id);
-            CorsoAllievo daCancellare = context.CorsiAllievi.Find(id);
-            context.CorsiAllievi.Remove(daCancellare);
-            context.SaveChanges();
+            try
+            {
+                CorsoAllievo daCancellare = context.CorsiAllievi.Find(id);
+                context.CorsiAllievi.Remove(daCancellare);
+                context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                return NotFound(new BusinessLogicException("Elemento non trovato", e));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new BusinessLogicException("Errore ", e));
+            }
+            return Ok();
         }
 
         // _dg_ PATCH: api/APICorsiAllievi/5

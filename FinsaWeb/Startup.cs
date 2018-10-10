@@ -39,24 +39,34 @@ namespace FinsaWeb
             //services.AddTransient<CourseRepository, InMemoryCourseRepository>();
             services.AddTransient<ICorsiRepository, EFCorsiRepository>();
             services.AddTransient<ICorsiUnitOfWork, EFCorsiUnitOfWork>();
+
+            //services.AddTransient<IEdizioniCorsiRepository, EFEdizioniCorsiRepository>();
             services.AddTransient<IEdizioniCorsiRepository, EFEdizioniCorsiRepository>();
+            //services.AddTransient<IEdizioniCorsiUnitOfWork, EFEdizioniCorsiUnitOfWork>();
+
             services.AddTransient<IAllieviRepository, EFAllieviRepository>();
-            services.AddTransient<ICorsiAllieviRepository, EFCorsiAllieviRepository>();
-            services.AddTransient<IDocenteUnitOfWork, EFDocentiUnitOfWork>();
-            services.AddTransient<IDocentiRepository, EFDocentiRepository>();
-            services.AddTransient<ICorsiDocentiRepository, EFCorsiDocentiRepository>();
             services.AddTransient<IAllieviUnitOfWork, EFAllieviUnitOfWork>();
+
+            services.AddTransient<ICorsiAllieviRepository, EFCorsiAllieviRepository>();
+
+            services.AddTransient<ICorsiDocentiRepository, EFCorsiDocentiRepository>();
+
+            services.AddTransient<IDocentiRepository, EFDocentiRepository>();
+            services.AddTransient<IDocenteUnitOfWork, EFDocentiUnitOfWork>();
+
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCors("MyPolicyCORS");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors("MyPolicyCORS");
+            
 
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();

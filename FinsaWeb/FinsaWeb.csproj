@@ -5,8 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\API\APICorsiAllieviController.cs" />
-    <Compile Remove="Controllers\API\APICorsiController.cs" />
+    <Compile Remove="Models\CoreNocciolo\UoW\ICorsiDocentiUnitOfWork.cs" />
+    <Compile Remove="Models\CoreNocciolo\UoW\IEdizioniCorsiUnitOfWork.cs" />
+    <Compile Remove="Models\EF\UoW\EFEdizioniCorsiUnitOfWork.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Controllers\API\APIEdizioneCorsoesController.cs.ERRATO" />
+    <None Remove="SharpLab - Expression-bodied members.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,12 +23,6 @@
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.1" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <None Include="Controllers\API\APICorsiAllieviController.cs" />
-    <None Include="Controllers\API\APICorsiController.cs" />
   </ItemGroup>
 
 </Project>

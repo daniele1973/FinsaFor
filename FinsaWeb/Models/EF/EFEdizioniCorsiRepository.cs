@@ -1,6 +1,7 @@
 ﻿using FinsaWeb.Models;
 using FinsaWeb.Models.CoreNocciolo;
 using FinsaWeb.Models.EF;
+using FinsaWeb.Models.EF.UoW;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,21 +11,41 @@ namespace FinsaWeb
 {
     internal class EFEdizioniCorsiRepository : IEdizioniCorsiRepository
     {
-        private FinsaContext context;
+        private FinsaContext ctx;
 
-        public EFEdizioniCorsiRepository(FinsaContext context)
+        public EFEdizioniCorsiRepository(FinsaContext ctx)
         {
-            this.context = context;
+            this.ctx = ctx;
         }
 
-        public void Aggiungi(EdizioneCorso edizioneCorso)
+        public EdizioneCorso Find(int id)
         {
-            throw new NotImplementedException("PLUTO");
+            return ctx.EdizioniCorsi.Find(id);
         }
 
         public IEnumerable<EdizioneCorso> FindAll()
         {
-            return context.EdizioniCorsi.ToList();
+            return ctx.EdizioniCorsi.ToList();
+        }
+
+        public IEnumerable<EdizioneCorso> FindByName(string s)
+        {
+            return ctx.EdizioniCorsi.Where(ec=>ec.Corso.Titolo.Contains(s)).ToList();
+        }
+
+        public void Add(EdizioneCorso edizioneCorso)
+        {
+            ctx.EdizioniCorsi.Add(edizioneCorso);
+        }
+
+        public void Delete(EdizioneCorso edizioneCorso)
+        {
+            ctx.EdizioniCorsi.Remove(edizioneCorso);
+        }
+
+        public void Update(EdizioneCorso edizioneCorso)
+        {
+            ctx.EdizioniCorsi.Update(edizioneCorso);
         }
     }
 }

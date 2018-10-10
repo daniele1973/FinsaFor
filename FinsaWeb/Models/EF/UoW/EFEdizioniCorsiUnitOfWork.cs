@@ -1,20 +1,16 @@
 ﻿using FinsaWeb.Models.CoreNocciolo;
 using FinsaWeb.Models.CoreNocciolo.UoW;
-using FinsaWeb.Models.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FinsaWeb.Models.Exceptions;
 
 namespace FinsaWeb.Models.EF.UoW
 {
-    public class EFCorsiUnitOfWork : ICorsiUnitOfWork
+    public class EFEdizioniCorsiUnitOfWork : IEdizioniCorsiUnitOfWork
     {
-        //public ICorsiRepository CorsiRepo => throw new NotImplementedException();
-
-        //public IEdizioniCorsiRepository EdizioniCorsi => throw new NotImplementedException();
-
         private FinsaContext ctx;
         private ICorsiRepository corsiRepo;
         private IEdizioniCorsiRepository edizioniCorsiRepo;
@@ -22,9 +18,7 @@ namespace FinsaWeb.Models.EF.UoW
         public ICorsiRepository CorsiRepo => corsiRepo;
         public IEdizioniCorsiRepository EdizioniCorsiRepo => edizioniCorsiRepo;
 
-
-
-        public EFCorsiUnitOfWork(ICorsiRepository corsiRepo,
+        public EFEdizioniCorsiUnitOfWork(ICorsiRepository corsiRepo,
                                          IEdizioniCorsiRepository edizioniCorsiRepo,
                                          FinsaContext ctx)
         {
@@ -32,10 +26,6 @@ namespace FinsaWeb.Models.EF.UoW
             this.corsiRepo = corsiRepo;
             this.edizioniCorsiRepo = edizioniCorsiRepo;
         }
-
-
-
-        public IEdizioniCorsiRepository EdizioniCorsi => throw new NotImplementedException();
 
         public void Begin()
         {
@@ -57,7 +47,7 @@ namespace FinsaWeb.Models.EF.UoW
             ctx.SaveChanges();
         }
 
-        public void AddEdizioneCorso(EdizioneCorso edizioneCorso)
+        public void Add(EdizioneCorso edizioneCorso)
         {
             Console.Error.WriteLine("AAAAAAA");
 
@@ -72,7 +62,7 @@ namespace FinsaWeb.Models.EF.UoW
             {
                 ctx.Database.RollbackTransaction();
                 throw new BusinessLogicException("Errore nell'inserimento EDIZIONE CORSO", e);
-
+               
             }
         }
     }

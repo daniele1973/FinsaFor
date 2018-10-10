@@ -5,14 +5,10 @@ using System.Threading.Tasks;
 
 namespace FinsaWeb.Models.CoreNocciolo.UoW
 {
-    public interface ICorsiUnitOfWork : IUnitOfWork
+    public interface IEdizioniCorsiUnitOfWork : IUnitOfWork
     {
-        ICorsiRepository CorsiRepo { get; }
         IEdizioniCorsiRepository EdizioniCorsiRepo { get; }
-
-        
-        void AddEdizioneCorso(EdizioneCorso edizioneCorso);
-
-
+        ICorsiRepository CorsiRepo { get; }
+        void Add(EdizioneCorso edizioneCorso);
     }
 }
