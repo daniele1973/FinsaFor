@@ -17,7 +17,7 @@ namespace FinsaWeb.Controllers
         }
         public IActionResult CorsiAllievi()
         {
-            reposit.Add(new CorsoAllievo { IdEdizioneCorso = 1, Voto = 8 });
+            //reposit.Add(new CorsoAllievo { IdEdizioneCorso = 1, Voto = 8 });
             //reposit.Add(new CorsoAllievo { IdAllievo = 2, IdEdizioneCorso = "secondo", Voto = 6 });
             var listone = reposit.FindAll();
             return View(listone);

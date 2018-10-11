@@ -40,6 +40,11 @@ namespace FinsaWeb.Models.InMemory
             throw new NotImplementedException();
         }
 
+        public IEnumerable<Corso> EnrollmentsForStudent(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Allievo Find(int id)
         {
             throw new NotImplementedException();

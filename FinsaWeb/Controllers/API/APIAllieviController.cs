@@ -46,7 +46,7 @@ namespace FinsaWeb.Controllers.API
             {
                 return BadRequest();
             }
-            var corsi = work.AllieviRepo.TrovaCorsiByIdStudent(id).Select(x=>x.ToDTO());
+            List<CorsoDTO> corsi = work.AllieviRepo.EnrollmentsForStudent(id).Select(x=>x.ToDTO()).ToList();
             if (corsi == null)
             {
                 return NotFound();

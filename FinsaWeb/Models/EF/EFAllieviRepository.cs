@@ -46,11 +46,10 @@ namespace FinsaWeb.Models.EF
             context.Allievi.Update(studente);
         }
 
-        public IEnumerable<CorsoAllievo> EnrollmentsForStudent(int id)
+        public IEnumerable<Corso> EnrollmentsForStudent(int id)
         {
 
-            return context.CorsiAllievi.Where(ca => ca.IdAllievo == id).Include(ca => ca.EdizioneCorso).ThenInclude(ec => ec.Corso).ToList();
-           
+            return context.CorsiAllievi.Where(ca => ca.IdAllievo == id).Include(ca => ca.EdizioneCorso).Select(x=>x.EdizioneCorso).Include(x=>x.Corso).Select(x=>x.Corso).ToList();
  
         }
     }
