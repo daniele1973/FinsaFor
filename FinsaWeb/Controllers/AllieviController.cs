@@ -17,7 +17,49 @@ namespace FinsaWeb.Controllers
         }
         public IActionResult Index()
         {
-            repo.Add(new Allievo { Nome="Martino", Cognome="Gonzalo", CodiceFiscale="MTNGNZ78A45D969M",TipoStudente="Mhhhhhh"});
+            //repo.Add(new Allievo { Nome="Martino", Cognome="Gonzalo", CodiceFiscale="MTNGNZ78A45D969M",TipoStudente="Mhhhhhh"});
+            //var lista = repo.FindAll();
+            //return View(lista);
+            return View();
+        }
+
+        public IActionResult Inserisci()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Inserisci(Allievo allievo)
+        {
+            if (ModelState.IsValid)
+            {
+                repo.Add(allievo);
+                return RedirectToAction("Inserisci","Allievi/Index");
+            }
+
+            return View(allievo);
+        }
+
+        public IActionResult Elimina()
+        {
+            ViewBag.pippo = -1;
+            return View();
+        }
+
+        [HttpDelete]
+        public IActionResult Elimina(int idAllievo)
+        {
+            if (ModelState.IsValid)
+            {
+                
+                repo.Delete(repo.Find(idAllievo));
+                return RedirectToAction("Elimina", "Allievi/Index");
+            }
+
+            return View(idAllievo);
+        }
+        public IActionResult Visualizza()
+        {
             var lista = repo.FindAll();
             return View(lista);
         }

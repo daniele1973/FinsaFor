@@ -20,9 +20,29 @@ namespace FinsaWeb.Models.EF
             context.SaveChanges();
         }
 
+        public void Delete(Allievo doc)
+        {
+            context.Allievi.Remove(doc);
+        }
+
+        public Allievo Find(int id)
+        {
+            return context.Allievi.Find(id);
+        }
+
         public IEnumerable<Allievo> FindAll()
         {
             return context.Allievi.ToList();
+        }
+
+        public IEnumerable<Allievo> FindByName(string name)
+        {
+            return context.Allievi.Where(x => x.Nome == name);
+        }
+
+        public void Update(Allievo doc)
+        {
+            context.Allievi.Update(doc);
         }
     }
 }

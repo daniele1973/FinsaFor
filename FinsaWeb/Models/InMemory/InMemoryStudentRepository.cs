@@ -35,6 +35,16 @@ namespace FinsaWeb.Models.InMemory
             listaAllievi.Add(Studente);
         }
 
+        public void Delete(Allievo doc)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Allievo Find(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Allievo> FindAll()
         {
             //List<Course> lista = new List<Course>();
@@ -49,6 +59,16 @@ namespace FinsaWeb.Models.InMemory
             //return lista;
             //return courses.Where(c => c.Title.Contains(title));
             return listaAllievi;
+        }
+
+        public IEnumerable<Allievo> FindByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Allievo doc)
+        {
+            throw new NotImplementedException();
         }
     }
 }
