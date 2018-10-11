@@ -66,6 +66,11 @@ namespace FinsaWeb.Models.InMemory
             throw new NotImplementedException();
         }
 
+        public IEnumerable<Corso> TrovaCorsiByIdStudent(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Allievo doc)
         {
             throw new NotImplementedException();

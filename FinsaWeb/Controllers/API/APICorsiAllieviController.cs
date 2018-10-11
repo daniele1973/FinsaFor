@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FinsaWeb.Models.Exceptions;
+using FinsaWeb.DTO;
+using FinsaWeb.DTO.Extentions;
+using FinsaWeb.Models.CoreNocciolo.UoW;
 
 namespace FinsaWeb.Controllers.API
 {
@@ -17,10 +20,12 @@ namespace FinsaWeb.Controllers.API
     public class APICorsiAllieviController : Controller
     {
         private FinsaContext context;
+        private IAllieviUnitOfWork work;
 
-        public APICorsiAllieviController(FinsaContext context)
+        public APICorsiAllieviController(FinsaContext context , IAllieviUnitOfWork work)
         {
             this.context = context;
+            this.work = work;
         }
 
         // GET: api/APICorsiAllievi
@@ -54,9 +59,21 @@ namespace FinsaWeb.Controllers.API
 
         // POST: api/APICorsiAllievi
         [HttpPost]
-        public IActionResult Post([FromBody]CorsoAllievo value)
+        public IActionResult Post([FromBody]CorsoAllievoDTO value)
         {
-            CorsoAllievo daInserire = new CorsoAllievo()
+            if (value == null)
+                return BadRequest();
+            CorsoAllievo corso = value.ToCorsoAllievo();
+            work.Begin();
+            work.CorsiAllieviRepo.Add(corso);
+            work.Save();
+            work.End();
+
+            return CreatedAtRoute("ROUTE_GET_ALLIEVI", new { id = corso.IdEdizioneCorso }, corso.ToDTO());
+
+
+
+            /*CorsoAllievo daInserire = new CorsoAllievo()
             {
                 IdAllievo = value.IdAllievo,
                 IdEdizioneCorso = value.IdEdizioneCorso,
@@ -71,8 +88,29 @@ namespace FinsaWeb.Controllers.API
             {
                 return BadRequest(new BusinessLogicException("Errore Inserimento", e));
             }
-            return Ok(daInserire);
+            return Ok(daInserire);*/
         }
+
+
+        /*[HttpPost]
+        public IActionResult Crea([FromBody] AllievoDTO studDTO)
+        {
+            if (studDTO == null)
+            {
+                return BadRequest();
+            }
+            Allievo stud = studDTO.ToAllievo();
+            work.Begin();
+            work.AllieviRepo.Add(stud);
+            work.Save();
+            work.End();
+            return CreatedAtRoute(ROUTE_GET_ALLIEVI, new { id = stud.IdStudente }, stud.ToDTO()); //risp al client
+        }
+        */
+
+
+
+
 
         // PUT: api/APICorsiAllievi/5
         [HttpPut("{id}")]

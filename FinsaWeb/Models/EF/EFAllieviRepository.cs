@@ -1,4 +1,5 @@
 ﻿using FinsaWeb.Models.CoreNocciolo;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,14 @@ namespace FinsaWeb.Models.EF
         public void Update(Allievo studente)
         {
             context.Allievi.Update(studente);
+        }
+
+        public IEnumerable<CorsoAllievo> EnrollmentsForStudent(int id)
+        {
+
+            return context.CorsiAllievi.Where(ca => ca.IdAllievo == id).Include(ca => ca.EdizioneCorso).ThenInclude(ec => ec.Corso).ToList();
+           
+ 
         }
     }
 }

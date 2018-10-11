@@ -9,6 +9,7 @@ namespace FinsaWeb.Models.CoreNocciolo
     {
         IEnumerable<Allievo> FindAll();
         IEnumerable<Allievo> FindByName(string name);
+        IEnumerable<CorsoAllievo> EnrollmentsForStudent(int id);
 
         void Add(Allievo Studente);
         Allievo Find(int id);

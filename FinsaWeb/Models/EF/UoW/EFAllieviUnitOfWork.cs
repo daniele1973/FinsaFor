@@ -12,12 +12,14 @@ namespace FinsaWeb.Models.EF.UoW
     {
         public IAllieviRepository AllieviRepo => repo;
 
-        public ICorsiAllieviRepository MyProperty { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ICorsiAllieviRepository CorsiAllieviRepo => CARepo;
 
         private FinsaContext ctx;
         private IAllieviRepository repo;
-        public EFAllieviUnitOfWork(IAllieviRepository repo, FinsaContext ctx)
+        private ICorsiAllieviRepository CARepo;
+        public EFAllieviUnitOfWork(IAllieviRepository repo, ICorsiAllieviRepository CARepo, FinsaContext ctx)
         {
+            this.CARepo = CARepo;
             this.repo = repo;
             this.ctx = ctx;
         }

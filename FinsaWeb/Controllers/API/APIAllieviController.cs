@@ -39,6 +39,21 @@ namespace FinsaWeb.Controllers.API
             return Ok(stud.ToDTO());
         }
 
+        [HttpGet("{id}/corsi")]
+        public IActionResult GetCourse(int id)
+        {
+            if (id < 1)
+            {
+                return BadRequest();
+            }
+            var corsi = work.AllieviRepo.TrovaCorsiByIdStudent(id).Select(x=>x.ToDTO());
+            if (corsi == null)
+            {
+                return NotFound();
+            }
+            return Ok(corsi);
+        }
+
         [HttpGet]
         public IActionResult GetAll()
         {
