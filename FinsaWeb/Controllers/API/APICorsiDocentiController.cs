@@ -8,11 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using FinsaWeb.Models;
 using FinsaWeb.Models.EF;
 using FinsaWeb.Models.CoreNocciolo.UoW;
+using FinsaWeb.DTO.Extentions;
 
 namespace FinsaWeb.Controllers.API
 {
     [Produces("application/json")]
-    [Route("api/Docenze")]
+    [Route("api/CorsiDocenti")]
     public class CorsiDocentiController : Controller
     {
         private readonly FinsaContext _context;
@@ -35,14 +36,14 @@ namespace FinsaWeb.Controllers.API
         // GET: api/Iscrizioni/5
         // tutti i corsi di un dato docente // si mettono le entità quando crei il modello di controller api collegato ad EF
         [HttpGet("corsi/{id}")]
-        public async Task<IActionResult> GetCorsoDocente([FromRoute] int id)
+        public IActionResult GetCorsoDocente([FromRoute] int id)
         {
-            if (!ModelState.IsValid)
+            if (id < 1)
             {
-                return BadRequest(ModelState);
+                return BadRequest();
             }
 
-            var corsoDocente = await _context.CorsiDocenti.SingleOrDefaultAsync(m => m.IdDocente == id);
+            var corsoDocente = work.CorsiDocentiRepo.FindAll().Select(cd => cd.ToDTO()); // 26' PER QUESTA RIGA
 
             if (corsoDocente == null)
             {
