@@ -14,9 +14,35 @@ namespace FinsaWeb.Models.EF
         {
             this.context = context;
         }
+
+        public void Add(Docente doc)
+        {
+            this.context.Docenti.Add(doc);
+        }
+
+        public void Delete(Docente doc)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Docente Find(int id)
+        {
+            return this.context.Docenti.Find(id);
+        }
+
         public IEnumerable<Docente> FindAll()
         {
             return context.Docenti.ToList();
+        }
+
+        public IEnumerable<Docente> FindByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Docente doc)
+        {
+            this.context.Docenti.Update(doc);
         }
     }
 }

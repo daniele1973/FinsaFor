@@ -1,14 +1,25 @@
 ﻿@model IEnumerable<Corso>
-
-<h2>Lista Corsi</h2>
-@*<p><a href="CorsiInserisci">Inserisci un Corso</a></p>*@
+@using System.Linq;
 <p><a asp-controller="Corsi" asp-action="Inserisci">Inserisci un Corso</a></p>
 
-<table>
-    <tr style="font-weight: bold;"><td>Id</td><td>Difficolt&agrave;</td><td>Prezzo Base</td><td>Titolo</td></tr>
+<h2>Visualizza Corsi</h2>
+
+<table id="tabCorsi">
+    <tr style="font-weight: bold;"><td>Id&nbsp;&nbsp;</td><td>Difficolt&agrave;&nbsp;&nbsp;</td><td>PrezzoBase&nbsp;&nbsp;</td><td>Titolo</td></tr>
     @foreach (var item in Model)
     {
-        <tr><td>@item.Id</td><td>@item.Difficolta</td><td>@item.PrezzoBase</td><td>@item.Titolo</td></tr>
+        <tr id="rigaCorso_@item.IdCorso" class="righeCorsi"><td>@item.IdCorso</td><td>@item.Difficolta</td><td>@item.PrezzoBase</td><td>@item.Titolo</td><td><button data-corso-id="@item.IdCorso">Vedi Edizioni Corso</button></td></tr>
     }
 </table>
 
+<div id="details" hidden>
+    <h3>Edizioni del corso IdCorso=<span id="idCorsoTitoloDetail"></span></h3>
+    <table id="tabEdizioniCorso">
+        <tr id="intestazioniTabEdizioniCorso" style="font-weight: bold;"><td>IdEdizioneCorso&nbsp;&nbsp;</td><td>DataInizioEdizioneCorso</td></tr>
+    </table>
+</div>
+@*<script src="~/scripts/VediEdizioniCorso.js"></script>*@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="~/scripts/VediEdizioniCorso.js"></script>

@@ -16,13 +16,13 @@ namespace FinsaWeb.Models.EF
 
         public void Add(Allievo Studente)
         {
-            context.Add(Studente);
+            context.Allievi.Add(Studente);
             context.SaveChanges();
         }
 
-        public void Delete(Allievo doc)
+        public void Delete(Allievo studente)
         {
-            context.Allievi.Remove(doc);
+            context.Allievi.Remove(studente);
         }
 
         public Allievo Find(int id)
@@ -37,12 +37,12 @@ namespace FinsaWeb.Models.EF
 
         public IEnumerable<Allievo> FindByName(string name)
         {
-            return context.Allievi.Where(x => x.Nome == name);
+            return context.Allievi.Where(x => x.Nome == name).ToList();
         }
 
-        public void Update(Allievo doc)
+        public void Update(Allievo studente)
         {
-            context.Allievi.Update(doc);
+            context.Allievi.Update(studente);
         }
     }
 }

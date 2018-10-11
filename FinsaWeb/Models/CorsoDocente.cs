@@ -7,6 +7,11 @@ namespace FinsaWeb.Models
 {
     public class CorsoDocente
     {
-        public int Id { get; set; }
+        public int IdDocente { get; set; }
+        public int IdEdizioneCorso { get; set; }
+        public decimal ValutazioneMedia { get; set; }
+
+        public Docente Docente { get; set; }
+        public EdizioneCorso EdizioneCorso { get; set; }
     }
 }

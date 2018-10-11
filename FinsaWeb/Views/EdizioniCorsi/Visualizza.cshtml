@@ -1,0 +1,55 @@
+﻿@model IEnumerable<EdizioneCorso>;
+
+@{
+        ViewData["Title"] = "Visualizza";
+}
+
+<a asp-controller="EdizioniCorsi" asp-action="Inserisci">Inserisci Edizione Corso</a>
+
+<h2>Visualizza Edizioni Corsi</h2>
+<table>
+    <tr style="font-weight: bold;"><td>IdEdizioneCorso (PK)</td><td>IdCorso (FK)</td><td>Data Inizio E.C.</td><td>...</td></tr>
+    @foreach (var item in Model)
+    {
+    <tr><td>@item.IdEdizioneCorso</td><td>@item.IdCorso</td><td>@item.DataInizio</td><td><button onclick="mostraCorso(@item.IdCorso, @item.IdEdizioneCorso)">Mostra Corso</button></td><td name="informazioniSulCorsoDiCuiEEdizione" id="idec_@item.IdEdizioneCorso"></td></tr>
+    }
+</table>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script>
+        function mostraCorso(idc, idec) {
+
+            //alert(`mostraCorso(${idc});`);
+
+            $.ajax({
+                type: 'GET',
+                url: '/API/Corsi/' + idc,
+                dataType: 'json',
+                success: function (datiJson) {
+                    //alert(datiJson.titolo);
+
+                    var tagDaAggiornare = document.getElementById("idec_" + idec);
+                    //tagDaAggiornare.innerText = datiJson.titolo;
+
+                    let s = "";
+
+                    //for (var i in datiJson) {
+                    //    s += i + ":" + datiJson[i] + ", ";
+                    //}
+                    //s = s.substring(0, s.length - 2); //Elimino l'ultima coppia delimitatrice ", "
+
+                    s += "IdCorso:" + datiJson.idCorso;
+                    s += ", Titolo:" + datiJson.titolo;
+                    s += ", PrezzoBase:" + datiJson.prezzoBase;
+                    s += ", Difficoltà:" + datiJson.difficolta;
+
+                    tagDaAggiornare.innerText = s;
+                },
+                error: function (ex) {
+                    alert(`ERROR CODE: ${ex.status}\nERROR TEXT: ${ex.statusText}`);
+                }
+            });
+        }
+    </script>
+

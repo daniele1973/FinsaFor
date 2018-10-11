@@ -8,7 +8,11 @@ namespace FinsaWeb.Models.CoreNocciolo
     public interface IEdizioniCorsiRepository
     {
         IEnumerable<EdizioneCorso> FindAll();
+        IEnumerable<EdizioneCorso> FindByName(string s);
 
-        void Aggiungi(EdizioneCorso edizioneCorso);
+        EdizioneCorso Find(int id);
+        void Add(EdizioneCorso edizioneCorso);
+        void Update(EdizioneCorso edizioneCorso);
+        void Delete(EdizioneCorso edizioneCorso);
     }
 }

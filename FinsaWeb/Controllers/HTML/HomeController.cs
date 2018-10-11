@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using FinsaWeb.Models;
 //using FinsaWeb.Models.InMemory;
 using FinsaWeb.Models.CoreNocciolo;
+using FinsaWeb.Views.Shared;
 
 namespace FinsaForEver.Controllers
 {
-    public class Pippo { public string Testo1 { get; set; } }
     public class HomeController : Controller
     {
         
@@ -21,10 +21,10 @@ namespace FinsaForEver.Controllers
         }
         public IActionResult Index()
         {
-            var p = new Pippo();
-            p.Testo1 = "Concettualmente";
+            var vb = new ViewBag();
+            vb.TestoTitolo = "FINSA Course Manager_";
             
-            return View(p);
+            return View(vb);
         }
     }
 }

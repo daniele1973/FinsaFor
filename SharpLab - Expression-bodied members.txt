@@ -1,0 +1,26 @@
+// https://sharplab.io/#v2:CYLg1APgsAULACBmABPATMgogMQIIBt8BLAUwDciAlEgBwHsBnIgFzoCcBPAb1gF9YEKdFjyFSFAKp0A6sh4xki5LCXIabImQCGzEiILFyVWoxbsOyNiYDcKpXcVJ9Yo9XpNWnZAfHH6yhSV5VQBIAHMSZgdVOWjQ+AB2SxtVOKV+QMUM1MzUFBwfIylpAAoClwo3U08LLTYASQA7ACsSAGNdYABKaOClEKt/AF5kOqbWjpJgW1zeAJyc3iA
+
+// https://github.com/ashmind/SharpLab
+
+public class EFAllieviRepository{
+}
+
+public class EFAllieviUoW {
+    
+    private EFAllieviRepository repo;
+    
+    public EFAllieviRepository AllieviRepo 
+    {
+    	get
+        {
+        	return repo;    
+        }
+    }
+    
+    public EFAllieviUoW(EFAllieviRepository arInjected)
+    {
+    	repo = arInjected;
+    } 
+    
+    
+}

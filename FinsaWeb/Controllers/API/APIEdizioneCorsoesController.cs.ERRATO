@@ -1,0 +1,126 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using FinsaWeb.Models;
+using FinsaWeb.Models.EF;
+
+namespace FinsaWeb.Controllers.API
+{
+    [Produces("application/json")]
+    [Route("api/EdizioniCorsi")]
+    public class APIEdizioneCorsoesController : Controller
+    {
+        private readonly FinsaContext _context;
+
+        public APIEdizioneCorsoesController(FinsaContext context)
+        {
+            _context = context;
+        }
+
+        // GET: api/EdizioneCorsoes
+        [HttpGet]
+        public IEnumerable<EdizioneCorso> GetEdizioniCorsi()
+        {
+            return _context.EdizioniCorsi;
+        }
+
+        // GET: api/EdizioneCorsoes/5
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetEdizioneCorso([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var edizioneCorso = await _context.EdizioniCorsi.SingleOrDefaultAsync(m => m.IdEdizioneCorso == id);
+
+            if (edizioneCorso == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(edizioneCorso);
+        }
+
+        // PUT: api/EdizioneCorsoes/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutEdizioneCorso([FromRoute] int id, [FromBody] EdizioneCorso edizioneCorso)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != edizioneCorso.IdEdizioneCorso)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(edizioneCorso).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!EdizioneCorsoExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // POST: api/EdizioneCorsoes
+        [HttpPost]
+        public async Task<IActionResult> PostEdizioneCorso([FromBody] EdizioneCorso edizioneCorso)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _context.EdizioniCorsi.Add(edizioneCorso);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetEdizioneCorso", new { id = edizioneCorso.IdEdizioneCorso }, edizioneCorso);
+        }
+
+        // DELETE: api/EdizioneCorsoes/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteEdizioneCorso([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var edizioneCorso = await _context.EdizioniCorsi.SingleOrDefaultAsync(m => m.IdEdizioneCorso == id);
+            if (edizioneCorso == null)
+            {
+                return NotFound();
+            }
+
+            _context.EdizioniCorsi.Remove(edizioneCorso);
+            await _context.SaveChangesAsync();
+
+            return Ok(edizioneCorso);
+        }
+
+        private bool EdizioneCorsoExists(int id)
+        {
+            return _context.EdizioniCorsi.Any(e => e.IdEdizioneCorso == id);
+        }
+    }
+}

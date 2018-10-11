@@ -22,7 +22,7 @@ namespace FinsaWeb.Models
         [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "Inserire solo numeri Lettere o numeri")]
         public string CodiceFiscale { get; set; }
         [Required]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Inserire solo Lettere")]
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Inserire solo Lettere")]
         public string TipoStudente { get; set; }
 
         public ICollection<CorsoAllievo> CorsiAllievi { get; set; }

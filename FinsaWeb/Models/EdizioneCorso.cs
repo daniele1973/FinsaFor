@@ -7,9 +7,13 @@ namespace FinsaWeb.Models
 {
     public class EdizioneCorso
     {
-        public int Id { get; set; }
+        public int IdEdizioneCorso { get; set; }
         public int IdCorso { get; set; }
         public DateTime DataInizio { get; set; }
+
         public IEnumerable<CorsoAllievo> CorsiAllievi { get; set; }
+        public IEnumerable<CorsoDocente> CorsiDocenti { get; set; }
+
+        public Corso Corso { get; set; }
     }
 }
