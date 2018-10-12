@@ -26,5 +26,6 @@ namespace FinsaWeb.Models
         public string TipoStudente { get; set; }
 
         public ICollection<CorsoAllievo> CorsiAllievi { get; set; }
+        
     }
 }
