@@ -7,30 +7,23 @@
     ViewData["Title"] = "Visualizzazione";
 }
 
-@foreach (var c in Model)
-{
 
-<div>
-    <span>
-        Course: @c.IdStudente
-    </span>
-    <br />
-    <span>
-        @c.Nome
-    </span>
-    <span>
-        @c.Cognome
-    </span>
-    <br />
-    <span>
-        CF: @c.CodiceFiscale
-    </span>
-    <br />
-    <span>
-        Type: @c.TipoStudente
-    </span>
-</div>
-<br />
-
-}
-
+<table id="tabCorsi">
+    <tr style="font-weight: bold;">
+        <td>Id Studente&nbsp;&nbsp;</td>
+        <td>Nome&nbsp;&nbsp;</td>
+        <td>Cognome&nbsp;&nbsp;</td>
+        <td>C.F&nbsp;&nbsp;</td>
+        <td>Student Type</td>
+    </tr>
+    @foreach (var item in Model)
+    {
+    <tr id="rigaCorso_@item.IdStudente" class="righeCorsi">
+        <td>@item.IdStudente</td>
+        <td>@item.Nome</td>
+        <td>@item.Cognome</td>
+        <td>@item.CodiceFiscale</td>
+        <td>@item.TipoStudente</td>
+    </tr>
+    }
+</table>

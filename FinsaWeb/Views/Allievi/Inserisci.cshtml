@@ -11,7 +11,7 @@
         @*Bootstrap*@
         <label asp-for="Nome" class="col-md-2 control-label"></label> @*NB: la label non definisce un testo! Siccome è la label per il campo Name, di default ci mette il nome della proprietà. Se per es è in CamelCase e vuoi stampare altro c'è modo di dirglielo*@
         <div class="col-md-5">
-            <textarea asp-for="Nome" class="form-control"></textarea>@*quello che metti nel campo finisce magicamente nella proprietà Name dell'obj di classe Feedback che gli abbiamo passato come Model. Alla fine non è che la form fa il post dell'obj FeedBack, manda una POST normale, ma ricalca le proprietà dell'obj di classe Feedback+
+            <input asp-for="Nome" class="form-control"></input>@*quello che metti nel campo finisce magicamente nella proprietà Name dell'obj di classe Feedback che gli abbiamo passato come Model. Alla fine non è che la form fa il post dell'obj FeedBack, manda una POST normale, ma ricalca le proprietà dell'obj di classe Feedback+
         +*@
             <span asp-validation-for="Nome" class="text-danger"></span> <!-- se gli passo un Model che ha una proprietà Name, la prende e la mette qui come valore predefinito di questo campo della form-->
         </div>
@@ -20,7 +20,7 @@
     <div class="form-group">
         <label asp-for="Cognome" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <textarea asp-for="Cognome" class="form-control"></textarea>
+            <input asp-for="Cognome" class="form-control"></input>
             <span asp-validation-for="Cognome" class="text-danger"></span>@*Errore sul singolo campo*@
         </div>
     </div>
@@ -28,7 +28,7 @@
     <div class="form-group">
         <label asp-for="CodiceFiscale" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <textarea asp-for="CodiceFiscale" class="form-control"></textarea>
+            <input asp-for="CodiceFiscale" class="form-control"></input>
             <span asp-validation-for="CodiceFiscale" class="text-danger"></span>
         </div>
     </div>
@@ -36,7 +36,7 @@
     <div class="form-group">
         <label asp-for="TipoStudente" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <textarea asp-for="TipoStudente" class="form-control"></textarea>
+            <input asp-for="TipoStudente" class="form-control"></input>
             <span asp-validation-for="TipoStudente" class="text-danger"></span>
         </div>
     </div>

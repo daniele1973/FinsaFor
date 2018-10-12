@@ -35,7 +35,7 @@ namespace FinsaWeb.Models.InMemory
             listaAllievi.Add(Studente);
         }
 
-        public void Delete(Allievo doc)
+        public void Delete(int stud)
         {
             throw new NotImplementedException();
         }
@@ -76,7 +76,7 @@ namespace FinsaWeb.Models.InMemory
             throw new NotImplementedException();
         }
 
-        public void Update(Allievo doc)
+        public void Update(Allievo stud)
         {
             throw new NotImplementedException();
         }

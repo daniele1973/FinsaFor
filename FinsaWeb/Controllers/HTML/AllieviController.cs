@@ -45,10 +45,28 @@ namespace FinsaWeb.Controllers
             return View(lista);
         }
 
-        public IActionResult VisualizzaPerNome(string nome)
+        public IActionResult VisualizzaPerNome()
         {
-            var stud = repo.FindByName(nome);
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult VisualizzaPerNome(ControlloAllievi allievo)
+        {
+            var stud = repo.FindByName(allievo.NomeStudente);
             return View("Visualizza", stud);
+        }
+        public IActionResult Elimina()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Elimina(ControlloAllievi allievo)
+        {
+            repo.Delete(allievo.IdStudente);
+            var lista = repo.FindAll();
+            return View("Visualizza",lista);
         }
     }
 }

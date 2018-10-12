@@ -13,7 +13,7 @@ namespace FinsaWeb.Models.CoreNocciolo
 
         void Add(Allievo Studente);
         Allievo Find(int id);
-        void Update(Allievo doc);
-        void Delete(Allievo doc);
+        void Update(Allievo stud);
+        void Delete(int idstud);
     }
 }

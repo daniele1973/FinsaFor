@@ -21,9 +21,11 @@ namespace FinsaWeb.Models.EF
             context.SaveChanges();
         }
 
-        public void Delete(Allievo studente)
+        public void Delete(int IdStudente)
         {
+            var studente = context.Allievi.Find(IdStudente);
             context.Allievi.Remove(studente);
+            context.SaveChanges();
         }
 
         public Allievo Find(int id)
