@@ -16,21 +16,23 @@ namespace FinsaWeb.Controllers.API
     [Route("api/CorsiDocenti")]
     public class CorsiDocentiController : Controller
     {
-        private readonly FinsaContext _context;
+        private FinsaContext context;
 
         public const string ROUTE_GET_COURSE = "ROUTE_GET_COURSE";
         private IDocenteUnitOfWork work;
 
-        public CorsiDocentiController(IDocenteUnitOfWork work)
+        public CorsiDocentiController(IDocenteUnitOfWork work,FinsaContext context)
         {
             this.work = work;
+            this.context = context;
         }
 
         // GET: api/Iscrizioni
         [HttpGet]
-        public IEnumerable<CorsoDocente> GetCorsiDocenti()
+        public IActionResult GetCorsiDocenti()
         {
-            return _context.CorsiDocenti;
+            List<CorsoDocente> corsi = context.CorsiDocenti.ToList();
+            return Ok(corsi);
         }
 
         // GET: api/Iscrizioni/5
@@ -67,11 +69,11 @@ namespace FinsaWeb.Controllers.API
                 return BadRequest();
             }
 
-            _context.Entry(corsoDocente).State = EntityState.Modified;
+            context.Entry(corsoDocente).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -97,10 +99,10 @@ namespace FinsaWeb.Controllers.API
                 return BadRequest(ModelState);
             }
 
-            _context.CorsiDocenti.Add(corsoDocente);
+            context.CorsiDocenti.Add(corsoDocente);
             try
             {
-                await _context.SaveChangesAsync();
+                await context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
@@ -126,21 +128,21 @@ namespace FinsaWeb.Controllers.API
                 return BadRequest(ModelState);
             }
 
-            var corsoDocente = await _context.CorsiDocenti.SingleOrDefaultAsync(m => m.IdDocente == id);
+            var corsoDocente = await context.CorsiDocenti.SingleOrDefaultAsync(m => m.IdDocente == id);
             if (corsoDocente == null)
             {
                 return NotFound();
             }
 
-            _context.CorsiDocenti.Remove(corsoDocente);
-            await _context.SaveChangesAsync();
+            context.CorsiDocenti.Remove(corsoDocente);
+            await context.SaveChangesAsync();
 
             return Ok(corsoDocente);
         }
 
         private bool CorsoDocenteExists(int id)
         {
-            return _context.CorsiDocenti.Any(e => e.IdDocente == id);
+            return context.CorsiDocenti.Any(e => e.IdDocente == id);
         }
     }
 }

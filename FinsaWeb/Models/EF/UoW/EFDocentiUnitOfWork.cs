@@ -12,6 +12,8 @@ namespace FinsaWeb.Models.EF.UoW
     {
         private FinsaContext ctx;
         private IDocentiRepository repo;
+        private ICorsiDocentiRepository Cdrep;
+        private IEdizioniCorsiRepository ECRep;
         public EFDocentiUnitOfWork(IDocentiRepository repo, FinsaContext ctx)
         {
             this.repo = repo;
@@ -20,9 +22,9 @@ namespace FinsaWeb.Models.EF.UoW
 
         public IDocentiRepository DocentiRepo { get =>  repo; }
 
-        public ICorsiDocentiRepository CorsiDocentiRepo => throw new NotImplementedException();
+        public ICorsiDocentiRepository CorsiDocentiRepo { get => Cdrep; }
 
-        public IEdizioniCorsiRepository EdizioniCorsiRepo => throw new NotImplementedException();
+        public IEdizioniCorsiRepository EdizioniCorsiRepo { get => ECRep; }
 
         public CorsoDocente AssegnaDocenza(int idEdizioneCorso, int idDocente)
         {

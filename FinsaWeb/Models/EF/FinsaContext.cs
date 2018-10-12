@@ -61,7 +61,7 @@ namespace FinsaWeb.Models.EF
             modelBuilder.Entity<CorsoDocente>()
                 .HasOne(cd => cd.EdizioneCorso)
                 .WithMany(ec => ec.CorsiDocenti)
-                .HasForeignKey(cd => cd.IdDocente);
+                .HasForeignKey(cd => cd.IdEdizioneCorso);
 
             modelBuilder.Entity<CorsoDocente>()
                 .HasOne(cd => cd.Docente)
