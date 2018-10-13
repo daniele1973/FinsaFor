@@ -25,6 +25,9 @@ namespace FinsaWeb.Models.EF
         {
             var studente = context.Allievi.Find(IdStudente);
             context.Allievi.Remove(studente);
+            var listCourseAll =context.CorsiAllievi.Where(x => x.IdAllievo == IdStudente).ToList();
+            foreach (var corsoA in listCourseAll)
+                context.CorsiAllievi.Remove(corsoA);
             context.SaveChanges();
         }
 
