@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FinsaWeb.Models;
 
 namespace FinsaWeb.DTO
 {
@@ -10,5 +11,6 @@ namespace FinsaWeb.DTO
         public int IdDocente { get; set; }
         public int IdEdizioneCorso { get; set; }
         public decimal ValutazioneMedia { get; set; }
+
     }
 }

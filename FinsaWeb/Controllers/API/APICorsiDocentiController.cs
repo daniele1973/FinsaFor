@@ -9,6 +9,8 @@ using FinsaWeb.Models;
 using FinsaWeb.Models.EF;
 using FinsaWeb.Models.CoreNocciolo.UoW;
 using FinsaWeb.DTO.Extentions;
+using FinsaWeb.DTO;
+using System.Data;
 
 namespace FinsaWeb.Controllers.API
 {
@@ -37,86 +39,69 @@ namespace FinsaWeb.Controllers.API
 
         // GET: api/Iscrizioni/5
         // tutti i corsi di un dato docente // si mettono le entità quando crei il modello di controller api collegato ad EF
-        [HttpGet("corsi/{id}")]
-        public IActionResult GetCorsoDocente([FromRoute] int id)
+        [HttpGet("{id}", Name = "GetAPICorsiDocenti")]
+        public IActionResult Get(int id) //GetCorsoDocente anche
         {
-            if (id < 1)
-            {
-                return BadRequest();
-            }
-
-            var corsoDocente = work.CorsiDocentiRepo.FindAll().Select(cd => cd.ToDTO()); // 26' PER QUESTA RIGA
-
-            if (corsoDocente == null)
+            CorsoDocente corso = context.CorsiDocenti.Find(id);
+            if (corso == null)
             {
                 return NotFound();
             }
+            return Ok(corso);
+            //if (id < 1)
+            //{
+            //    return BadRequest();
+            //}
 
-            return Ok(corsoDocente);
+            //var corsoDocente = work.CorsiDocentiRepo.FindAll().Select(cd => cd.ToDTO()); // 26' PER QUESTA RIGA
+
+            //if (corsoDocente == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //return Ok(corsoDocente);
         }
 
         // PUT: api/Iscrizioni/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCorsoDocente([FromRoute] int id, [FromBody] CorsoDocente corsoDocente)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[HttpPut("{id}")]
+        //public IActionResult Update(int id, [FromBody]CorsoDocente value)
+        //{
+        //    //if (value == null)
+        //    //{
+        //    //    return BadRequest();
+        //    //}
+        //    //Docente doc = value.ToDocente();
+        //    //try
+        //    //{
+        //    //    work.Begin();
+        //    //    work.DocentiRepo.Update(doc);
+        //    //    work.Save();
+        //    //    work.End();
 
-            if (id != corsoDocente.IdDocente)
-            {
-                return BadRequest();
-            }
-
-            context.Entry(corsoDocente).State = EntityState.Modified;
-
-            try
-            {
-                await context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CorsoDocenteExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
+        //    //}
+        //    //catch (DataException)
+        //    //{
+        //    //    return NotFound();
+        //    //}
+        //    //return NoContent();
+        //}
 
         // POST: api/Iscrizioni
         [HttpPost]
-        public async Task<IActionResult> PostCorsoDocente([FromBody] CorsoDocente corsoDocente)
+        public IActionResult Post([FromBody]CorsoDocenteDTO value)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (value == null)
+                return BadRequest();
+            CorsoDocente Docente = value.ToCorsoDocente();
+            work.Begin();
+            work.CorsiDocentiRepo.Add(Docente);
+            work.Save();
+            work.End();
 
-            context.CorsiDocenti.Add(corsoDocente);
-            try
-            {
-                await context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (CorsoDocenteExists(corsoDocente.IdDocente))
-                {
-                    return new StatusCodeResult(StatusCodes.Status409Conflict);
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            return CreatedAtRoute("ROUTE_GET_COURSE", new { id = Docente.IdEdizioneCorso }, Docente.ToDTO());
 
-            return CreatedAtAction("GetCorsoDocente", new { id = corsoDocente.IdDocente }, corsoDocente);
+            //return CreatedAtAction("GetCorsoDocente", new { id = corsoDocente.IdDocente }, corsoDocente);
         }
 
         // DELETE: api/Iscrizioni/5

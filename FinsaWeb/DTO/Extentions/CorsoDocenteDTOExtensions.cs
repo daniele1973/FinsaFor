@@ -19,5 +19,15 @@ namespace FinsaWeb.DTO.Extentions
                 ValutazioneMedia = corsoDocente.ValutazioneMedia
             };
         }
+
+        public static CorsoDocente ToCorsoDocente(this CorsoDocenteDTO cd)
+        {
+            return new CorsoDocente
+            {
+                IdDocente = cd.IdDocente,
+                IdEdizioneCorso = cd.IdEdizioneCorso,
+                ValutazioneMedia = cd.ValutazioneMedia
+            };
+        }
     }
 }
