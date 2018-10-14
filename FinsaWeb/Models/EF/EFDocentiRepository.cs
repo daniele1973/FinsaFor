@@ -20,9 +20,14 @@ namespace FinsaWeb.Models.EF
             this.context.Docenti.Add(doc);
         }
 
-        public void Delete(Docente doc)
+        public void Delete(int idDocente)
         {
-            throw new NotImplementedException();
+            var docente = context.Docenti.Find(idDocente);
+            context.Docenti.Remove(docente); // docenti qui è il dbSet presente nel contesto
+            //var listCourseAll = context.CorsiAllievi.Where(x => x.IdAllievo == idDocente).ToList();
+            //foreach (var corsoA in listCourseAll)
+            //    context.CorsiAllievi.Remove(corsoA);
+            context.SaveChanges();
         }
 
         public Docente Find(int id)

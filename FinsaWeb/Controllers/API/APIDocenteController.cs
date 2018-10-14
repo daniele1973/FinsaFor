@@ -90,5 +90,29 @@ namespace FinsaWeb.Controllers.API
             }
             return NoContent();
         }
+
+        [HttpDelete("{id}/delete")]
+        public IActionResult Delete(int id)
+        {
+            if (id < 1)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                work.Begin();
+                work.DocentiRepo.Delete(id);
+                work.Save();
+                work.End();
+
+            }
+            catch (DataException)
+            {
+                return NotFound();
+            }
+            //var studente = work.AllieviRepo.FindAll().Select(d => d.ToDTO());
+            //return Ok(studente);
+            return Ok();
+        }
     }
 }
