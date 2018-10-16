@@ -20,12 +20,19 @@ namespace FinsaWeb.Models.EF
             return context.CorsiDocenti.ToList(); // CorsiDocenti non lo prende
         }
 
-        void ICorsiDocentiRepository.Add(CorsoDocente corsoDocente)
+        public void Add(CorsoDocente corsoDocente)
         {
             context.CorsiDocenti.Add(corsoDocente);
+            context.SaveChanges();
         }
 
-        void ICorsiDocentiRepository.Delete(CorsoDocente corsoDocente)
+        //public void Add(CorsoAllievo corsoAllievo)
+        //{
+        //    context.CorsiAllievi.Add(corsoAllievo);
+
+        //    context.SaveChanges();
+
+            void ICorsiDocentiRepository.Delete(CorsoDocente corsoDocente)
         {
             throw new NotImplementedException();
         }
